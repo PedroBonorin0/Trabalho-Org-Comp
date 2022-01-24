@@ -4,6 +4,6 @@
 
 Integrantes:
 - Pedro Luiz Bonorino Braga - 202065177A
-- Pedro Luiz Bonorino Braga - 202065177A
-- Pedro Luiz Bonorino Braga - 202065177A
+- Yuri Clemente Moreira - 201765268AB
+- Yara Lorrayne Alves Honório - 202035039
 
