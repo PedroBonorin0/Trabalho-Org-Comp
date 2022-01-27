@@ -7,3 +7,8 @@ Integrantes:
 - Yuri Clemente Moreira - 201765268AB
 - Yara Lorrayne Alves Honório - 202035039
 
+
+##### Compilação(dentro da pasta src): 
+```
+g++ *.cpp -o main.exe
+```
