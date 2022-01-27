@@ -16,35 +16,38 @@ void Mips::inicia() {
 
   if(this->isLeitura) iniciaComLeitura();
   else iniciaSemLeitura();
+
 }
 
 void Mips::iniciaComLeitura() {
-  char path;
-  cout << "\nDigite o caminho do arquivo a ser lido: " << endl;
-  // Implementar
+  string caminhoArquivo, linha;
+  int comando;
+
+  cout << "\nDigite o caminho a partir da pasta atual para o arquivo a ser lido\n";
+  cin >> caminhoArquivo;
+
+  ifstream arq;
+  arq.open(caminhoArquivo);
+
+  if(!arq.is_open()) {
+    cout << "\nArquivo não foi aberto corretamente!\n";
+    return;
+  }
+
+  while(getline(arq, linha)) {
+    comando = stoi(linha);
+    this->instrucoes.push_back(comando);
+  }
+
 }
 
 void Mips::iniciaSemLeitura() {
-  int tam = 20;
-  char* instrucoes = new char[tam];
-  int escolha = 0;
-
-  for(int i = 0; i < tam; i++) {
-    instrucoes[i] = leInstrucao();
-
-    if(instrucoes[i] == -1) break;
-  }
-
-  for(int i = 0; i < tam; i++) {
-    cout << i << " - " << instrucoes[i] << endl;;
-  }
-
-  delete instrucoes;
+    int instrucao = leInstrucao();
 }
 
 
 //? Getters e Setters
-char Mips::getInstrucao() {
+int Mips::getInstrucao() {
   return this->instrucao;
 }
 
@@ -56,12 +59,12 @@ void Mips::reset() {
   cout << "\nMemória Limpa\n";
 }
 
-char Mips::leInstrucao() {
-  char instrucaoAtual;
+int Mips::leInstrucao() {
+  int instrucaoAtual = 0;
 
   cout << "\nDigite a instrução: " << endl;
 
-  // Ler instrucao;
+  cin >> instrucaoAtual;
 
-  return instrucao;
+  return instrucaoAtual;
 }

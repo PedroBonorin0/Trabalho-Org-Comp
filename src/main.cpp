@@ -1,4 +1,6 @@
 #include<iostream>
+#include<string>
+#include<string.h>
 #include "../headers/Mips.h"
 
 using namespace std;
