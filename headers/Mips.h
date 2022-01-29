@@ -12,7 +12,7 @@ class Mips {
   private:
     int instrucao;
     bool isLeitura;
-    vector<int> instrucoes;
+    vector< vector<int> > instrucoes;
 
   public:
     Mips(int isLeitura);

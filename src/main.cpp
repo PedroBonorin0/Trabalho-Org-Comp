@@ -10,6 +10,8 @@ int main(int argc, char const *argv[]) {
   cout << "\nPROGRAMA INICIADO" << endl;
 
   int leitura;
+  //leitura = 1 ;
+
 
   do{
     cout << "\nDigite: " << endl;
