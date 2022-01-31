@@ -1,6 +1,8 @@
 #include<iostream>
 #include "../headers/Mips.h"
 
+#include"../headers/Instrucao.h"
+
 #define ZERO = 0;
 
 //? Cosntrutor e Destrutor
@@ -21,30 +23,87 @@ void Mips::inicia() {
 
 void Mips::iniciaComLeitura() {
   string caminhoArquivo, linha;
-  long long int comando;
+  int comando;
+  caminhoArquivo = "./comandos.txt";
+  // cout << "\nDigite o caminho a partir da pasta atual para o arquivo a ser lido\n";
+  // cin >> caminhoArquivo;
 
-  cout << "\nDigite o caminho a partir da pasta atual para o arquivo a ser lido\n";
-  cin >> caminhoArquivo;
+  ifstream arquivo;
+  arquivo.open(caminhoArquivo);
 
-  ifstream arq;
-  arq.open(caminhoArquivo);
-
-  if(!arq.is_open()) {
+  if(!arquivo) {
     cout << "\nArquivo não foi aberto corretamente!\n";
     return;
   }
 
-  while(getline(arq, linha)) {
-    comando = stol(linha);
-    this->instrucoes.push_back(comando);
+  vector<int> row;
+  while(getline(arquivo, linha)) {
+    for (int i = 0; i < linha.size(); i++){
+      comando = linha[i];
+      if(comando == 48){   // = 0
+        row.push_back(0);
+      
+      }else {
+        if(comando == 49){
+          row.push_back(1);
+        }else{
+          cout << "Foi inserido no codigo das instrucoes valores diferentes de binario(0 ou 1)" << endl;
+          return;
+        }
+      }
+      
+    }
+    cout << row.size()<<endl; 
+    if (row.size() != 32){
+          cout << "Foi inserido menos de 32 caracteres na instrucao.O programa nao pode ser executado!" << endl;
+          return;
+    }
+    instrucoes.push_back(row);
+    row.clear();  
+    
   }
-
 }
 
 void Mips::iniciaSemLeitura() {
-  long long int instrucao = leInstrucao();
+  string instrucao;
+  int comando;
+  cout << "\nDigite a instrução: " << endl;   
+  cin >> instrucao; 
 
-  cout << "\nInstrução digitada: " <<  to_string(instrucao) << endl;
+  vector<int> row;
+
+  for (int i = 0; i < instrucao.size(); i++){
+    comando = instrucao[i];
+    if(comando == 48){   // = 0
+        row.push_back(0);
+      
+    }else {
+      if(comando == 49){
+        row.push_back(1);
+      }else{
+          cout << "Foi inserido no codigo das instrucoes valores diferentes de binario(0 ou 1)" << endl;
+          return;
+        }
+      }
+
+    
+  }
+  cout << row.size()<<endl; 
+    if (row.size() != 32){
+      cout << "Foi inserido menos de 32 caracteres na instrucao.O programa nao pode ser executado!" << endl;
+      return;
+    }
+    instrucoes.push_back(row);
+
+  MemInstrucoes* memoriaInstrucoes = new MemInstrucoes();
+  for(int i = 0; i < instrucoes.size(); i++) {
+    Instrucao* instrucao = new Instrucao(instrucoes[i]);
+    instrucao->getInstrucao();
+    
+    memoriaInstrucoes->seqInstrucoes.push_back(instrucao);
+    
+    delete instrucao;
+  }
 }
 
 
@@ -61,12 +120,3 @@ void Mips::reset() {
   cout << "\nMemória Limpa\n";
 }
 
-long long int Mips::leInstrucao() {
-  long long int instrucaoAtual = 0;
-
-  cout << "\nDigite a instrução: " << endl;
-
-  cin >> instrucaoAtual;
-
-  return instrucaoAtual;
-}

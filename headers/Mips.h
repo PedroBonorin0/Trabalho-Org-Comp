@@ -6,13 +6,15 @@
 #include<vector>
 #include<fstream>
 
+#include"../headers/MemInstrucoes.h"
+
 using namespace std;
 
 class Mips {
   private:
     long long int instrucao;
     bool isLeitura;
-    vector<int> instrucoes;
+    vector< vector<int> > instrucoes;
 
   public:
     Mips(int isLeitura);
