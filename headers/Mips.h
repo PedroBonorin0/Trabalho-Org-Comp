@@ -10,7 +10,7 @@ using namespace std;
 
 class Mips {
   private:
-    int instrucao;
+    long long int instrucao;
     bool isLeitura;
     vector<int> instrucoes;
 
@@ -19,11 +19,11 @@ class Mips {
     ~Mips();
 
     //? Getters e Setters
-    int getInstrucao();
+    long long int getInstrucao();
 
     void reset();
 
-    int leInstrucao();
+    long long int leInstrucao();
 
     void inicia();
     void iniciaComLeitura();

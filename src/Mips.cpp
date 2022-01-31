@@ -21,7 +21,7 @@ void Mips::inicia() {
 
 void Mips::iniciaComLeitura() {
   string caminhoArquivo, linha;
-  int comando;
+  long long int comando;
 
   cout << "\nDigite o caminho a partir da pasta atual para o arquivo a ser lido\n";
   cin >> caminhoArquivo;
@@ -35,19 +35,21 @@ void Mips::iniciaComLeitura() {
   }
 
   while(getline(arq, linha)) {
-    comando = stoi(linha);
+    comando = stol(linha);
     this->instrucoes.push_back(comando);
   }
 
 }
 
 void Mips::iniciaSemLeitura() {
-    int instrucao = leInstrucao();
+  long long int instrucao = leInstrucao();
+
+  cout << "\nInstrução digitada: " <<  to_string(instrucao) << endl;
 }
 
 
 //? Getters e Setters
-int Mips::getInstrucao() {
+long long int Mips::getInstrucao() {
   return this->instrucao;
 }
 
@@ -59,8 +61,8 @@ void Mips::reset() {
   cout << "\nMemória Limpa\n";
 }
 
-int Mips::leInstrucao() {
-  int instrucaoAtual = 0;
+long long int Mips::leInstrucao() {
+  long long int instrucaoAtual = 0;
 
   cout << "\nDigite a instrução: " << endl;
 
