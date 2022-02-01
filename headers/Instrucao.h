@@ -28,8 +28,7 @@ using namespace std;
 
 class Instrucao {
   private:
-    int instrucao; //Lista de valores comentado acima
-    int reg1, reg2, re3;
+    vector<int> instrucao; //Lista de valores comentado acima
     bool isImeddiate;
     char tipoInstrucao;
 
@@ -37,16 +36,20 @@ class Instrucao {
     Instrucao(vector<int> instrucao);
     ~Instrucao();
     
-    int getInstrucao();
+    vector<int> getInstrucao();
     void setInstrucao(vector<int> comando);
 
     char getTipoInstrucao();
     void setTipoInstrucao(char tipo);
 
     int getOpcode(vector<int> comando);
-    int getFunct(vector<int> comando);
 
     int converteBinParaDec(int digitos);
+
+    void setCodesR(vector<int> comando);
+    void setCodesI(vector<int> comando);
+    void setCodesJ(vector<int> comando);
+
 };  
 
 #endif

@@ -2,6 +2,8 @@
 #include "../headers/Mips.h"
 
 #include"../headers/Instrucao.h"
+#include"../headers/BancoRegistradores.h"
+#include"../headers/MemInstrucoes.h"
 
 #define ZERO = 0;
 
@@ -78,16 +80,15 @@ void Mips::iniciaSemLeitura() {
         row.push_back(0);
       
     }else {
-      if(comando == 49){
+      if(comando == 49) {
         row.push_back(1);
-      }else{
-          cout << "Foi inserido no codigo das instrucoes valores diferentes de binario(0 ou 1)" << endl;
-          return;
-        }
+      } else {
+        cout << "Foi inserido no codigo das instrucoes valores diferentes de binario(0 ou 1)" << endl;
+        return;
       }
-
-    
+    }
   }
+
   cout << row.size()<<endl; 
     if (row.size() != 32){
       cout << "Foi inserido menos de 32 caracteres na instrucao.O programa nao pode ser executado!" << endl;
@@ -98,9 +99,9 @@ void Mips::iniciaSemLeitura() {
   MemInstrucoes* memoriaInstrucoes = new MemInstrucoes();
   for(int i = 0; i < instrucoes.size(); i++) {
     Instrucao* instrucao = new Instrucao(instrucoes[i]);
-    instrucao->getInstrucao();
-    
-    memoriaInstrucoes->seqInstrucoes.push_back(instrucao);
+
+    memoriaInstrucoes->seqInstrucoes.push_back(instrucao->getInstrucao());
+    memoriaInstrucoes->somaPC();
     
     delete instrucao;
   }
