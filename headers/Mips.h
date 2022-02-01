@@ -30,6 +30,8 @@ class Mips {
     void inicia();
     void iniciaComLeitura();
     void iniciaSemLeitura();
+
+    void iniciaSimulacao(MemInstrucoes& memoria);
 };  
 
 #endif

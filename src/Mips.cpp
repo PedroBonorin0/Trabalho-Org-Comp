@@ -38,6 +38,8 @@ void Mips::iniciaComLeitura() {
     return;
   }
 
+  int linhas = 0;
+
   vector<int> row;
   while(getline(arquivo, linha)) {
     for (int i = 0; i < linha.size(); i++){
@@ -61,9 +63,24 @@ void Mips::iniciaComLeitura() {
           return;
     }
     instrucoes.push_back(row);
-    row.clear();  
-    
+    row.clear();
+
+    linhas++;
+    cout << linhas << endl;
   }
+  
+  MemInstrucoes* memoriaInstrucoes = new MemInstrucoes();
+  for(int i = 0; i < linhas; i++) {   
+    Instrucao* instrucao = new Instrucao(instrucoes[i]);
+
+    memoriaInstrucoes->seqInstrucoes.push_back(instrucao->getInstrucao());
+    memoriaInstrucoes->somaPC();
+    
+    delete instrucao;
+  }
+  cout << "Vai iniciar";
+  iniciaSimulacao(*memoriaInstrucoes);
+  delete memoriaInstrucoes;
 }
 
 void Mips::iniciaSemLeitura() {
@@ -95,16 +112,6 @@ void Mips::iniciaSemLeitura() {
       return;
     }
     instrucoes.push_back(row);
-
-  MemInstrucoes* memoriaInstrucoes = new MemInstrucoes();
-  for(int i = 0; i < instrucoes.size(); i++) {
-    Instrucao* instrucao = new Instrucao(instrucoes[i]);
-
-    memoriaInstrucoes->seqInstrucoes.push_back(instrucao->getInstrucao());
-    memoriaInstrucoes->somaPC();
-    
-    delete instrucao;
-  }
 }
 
 
@@ -119,5 +126,16 @@ void Mips::reset() {
   // Limpar memória/registradores
   
   cout << "\nMemória Limpa\n";
+}
+
+void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
+  cout << "\nIciando simulação de Máquina MIPS\n";
+
+  for(int i = 0 ; i < memInstrucoes.seqInstrucoes.size(); i++) {
+    for(int j = 0 ; j < memInstrucoes.seqInstrucoes[i].size(); j++) {
+      cout << to_string(memInstrucoes.seqInstrucoes[i][j]) << " ";
+    }
+    cout << endl;
+  }
 }
 

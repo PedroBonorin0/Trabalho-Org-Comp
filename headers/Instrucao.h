@@ -46,7 +46,7 @@ class Instrucao {
 
     int getOpcode(vector<int> comando);
 
-    int converteBinParaDec(int digitos);
+    int converteBinParaDec(string digitos);
 
     void setCodesR(vector<int> comando);
     void setCodesI(vector<int> comando);

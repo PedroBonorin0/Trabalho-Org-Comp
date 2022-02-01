@@ -15,10 +15,10 @@ class MemInstrucoes {
     int pc;
 
   public:
-    vector< vector<int> >seqInstrucoes;
+    vector<vector<int>> seqInstrucoes;
 
     MemInstrucoes() {this->pc = 0;};
-    ~MemInstrucoes();
+    ~MemInstrucoes() {};
 
     void somaPC() {this->pc += 4;};
 };  

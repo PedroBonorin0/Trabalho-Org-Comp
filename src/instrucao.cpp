@@ -70,20 +70,23 @@ void Instrucao::setInstrucao(vector<int> comando) {
     setTipoInstrucao('J');
     this->instrucao[0] = JAL;
   }
-  
+
   if(getTipoInstrucao() == 'R') setCodesR(comando);
-  else if(getTipoInstrucao() == 'I') setCodesI(comando);
-  else setCodesJ(comando);
+  if(getTipoInstrucao() == 'I') setCodesI(comando);
+  if(getTipoInstrucao() == 'J') setCodesJ(comando);
+    
 }
 
-int Instrucao::converteBinParaDec(int binario) {
-   int decimal = 0;
+int Instrucao::converteBinParaDec(string binario) {
+  unsigned long decimal = 0;
+  int tam, i = 0;
 
-  for(int i = 0; binario > 0; i++) {
-    decimal = decimal + pow(2, i) * (binario % 10);
-    binario = binario / 10;
+  tam = binario.size();
+  while(tam--) {
+    if( binario[tam] == '0' || binario[tam] == '1' ) 
+      decimal = decimal + pow(2, i++) * (binario[tam] - '0');
   }
-  
+
   return decimal;
 }
 
@@ -93,8 +96,8 @@ int Instrucao::getOpcode(vector<int> comando) {
   for(int i = 0; i < 6; i++) {
     digitos += to_string(comando[i]);
   }
-
-  return converteBinParaDec(stoi(digitos));
+  
+  return converteBinParaDec(digitos);
 }
 
 
@@ -109,35 +112,35 @@ void Instrucao::setCodesR(vector<int> comando) {
     digitos += to_string(comando[i]);
     i++;
   }
-  this->instrucao[1] = converteBinParaDec(stoi(digitos));
+  this->instrucao[1] = converteBinParaDec(digitos);
   digitos = "";
 
   while(i < 16) { // RT
     digitos += to_string(comando[i]);
     i++;
   }
-  this->instrucao[2] = converteBinParaDec(stoi(digitos));
+  this->instrucao[2] = converteBinParaDec(digitos);
   digitos = "";
 
   while(i < 21) { // RD
     digitos += to_string(comando[i]);
     i++;
   }
-  this->instrucao[3] = converteBinParaDec(stoi(digitos));
+  this->instrucao[3] = converteBinParaDec(digitos);
   digitos = "";
 
   while(i < 26) { // SHAMT
     digitos += to_string(comando[i]);
     i++;
   }
-  this->instrucao[4] = converteBinParaDec(stoi(digitos));
+  this->instrucao[4] = converteBinParaDec(digitos);
   digitos = "";
 
   while(i < 32) { // FUNCT
     digitos += to_string(comando[i]);
     i++;
   }
-  this->instrucao[5] = converteBinParaDec(stoi(digitos));
+  this->instrucao[5] = converteBinParaDec(digitos);
   digitos = "";
 
 }
@@ -151,22 +154,23 @@ void Instrucao::setCodesI(vector<int> comando) {
     digitos += to_string(comando[i]);
     i++;
   }
-  this->instrucao[1] = converteBinParaDec(stoi(digitos));
+  this->instrucao[1] = converteBinParaDec(digitos);
   digitos = "";
   
   while(i < 16) { // RT
     digitos += to_string(comando[i]);
     i++;
   }
-  this->instrucao[2] = converteBinParaDec(stoi(digitos));
+  this->instrucao[2] = converteBinParaDec(digitos);
   digitos = "";
 
   while(i < 32) { // IMMEDIATE
     digitos += to_string(comando[i]);
     i++;
   }
-  this->instrucao[3] = converteBinParaDec(stoi(digitos));
+  this->instrucao[3] = converteBinParaDec(digitos);
   digitos = "";
+
 }
 
 void Instrucao::setCodesJ(vector<int> comando) {
@@ -178,7 +182,7 @@ void Instrucao::setCodesJ(vector<int> comando) {
     digitos += to_string(comando[i]);
     i++;
   }
-  this->instrucao[1] = converteBinParaDec(stoi(digitos));
+  this->instrucao[1] = converteBinParaDec(digitos);
   digitos = "";
   
 }
