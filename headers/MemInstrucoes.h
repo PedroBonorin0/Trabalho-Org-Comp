@@ -13,7 +13,7 @@ class MemInstrucoes {
     int pc;
 
   public:
-    vector<vector<int>> seqInstrucoes;
+    vector<vector<int> > seqInstrucoes;
     vector<string> seqInstrucoesString;
 
     MemInstrucoes();

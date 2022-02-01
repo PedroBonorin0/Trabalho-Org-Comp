@@ -73,6 +73,7 @@ void Mips::iniciaComLeitura() {
     memoriaInstrucoes->seqInstrucoes.push_back(instrucoes[i]);
     memoriaInstrucoes->somaPC();
   }
+  memoriaInstrucoes->setInstrucoesString();
   iniciaSimulacao(*memoriaInstrucoes);
   delete memoriaInstrucoes;
 }
@@ -123,7 +124,7 @@ void Mips::reset(BancoRegistradores* regs) {
 
 void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
   cout << "\nIniciando simulação de Máquina MIPS\n";
-
+  
   BancoRegistradores* bancoRegs = new BancoRegistradores();
 
   string ifAtual, idAtual, exeAtual, memAtual, wbAtual;
@@ -136,15 +137,16 @@ void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
   string estadoMEM;
   string estadoWB;
 
-  cout << "valor = " << memInstrucoes.seqInstrucoesString.size() << endl;
+  
 
   for (int a = 0; a < memInstrucoes.seqInstrucoesString.size() + 4; a++){
+    cout << a << endl;
     if(indiceIF >= memInstrucoes.seqInstrucoesString.size()) {
       estadoIF = "vazio";
     }
 
-    ifAtual = memInstrucoes.getProximaInstrucao();
-    estadoIF = ifAtual;
+    // ifAtual = memInstrucoes.getProximaInstrucao();
+    // estadoIF = ifAtual;
     
   //   if(indiceID <= -1) {
   //     estadoID = "vazio";
