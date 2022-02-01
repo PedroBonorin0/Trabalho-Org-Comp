@@ -7,6 +7,7 @@
 #include<fstream>
 
 #include"../headers/MemInstrucoes.h"
+#include"../headers/BancoRegistradores.h"
 
 using namespace std;
 
@@ -14,7 +15,7 @@ class Mips {
   private:
     long long int instrucao;
     bool isLeitura;
-    vector< vector<int> > instrucoes;
+    vector<vector<int>> instrucoes;
 
   public:
     Mips(int isLeitura);
@@ -23,7 +24,7 @@ class Mips {
     //? Getters e Setters
     long long int getInstrucao();
 
-    void reset();
+    void reset(BancoRegistradores* regs);
 
     long long int leInstrucao();
 

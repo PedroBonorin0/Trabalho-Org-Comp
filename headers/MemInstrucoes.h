@@ -6,8 +6,6 @@
 #include<vector>
 #include<fstream>
 
-#include"../headers/Instrucao.h"
-
 using namespace std;
 
 class MemInstrucoes {
@@ -16,11 +14,19 @@ class MemInstrucoes {
 
   public:
     vector<vector<int>> seqInstrucoes;
+    vector<string> seqInstrucoesString;
 
-    MemInstrucoes() {this->pc = 0;};
+    MemInstrucoes();
     ~MemInstrucoes() {};
 
     void somaPC() {this->pc += 4;};
+    void subPC() {this->pc -= 4;};
+
+    int getPC() {return this->pc;};
+
+    void setInstrucoesString();
+    
+    string getProximaInstrucao();
 };  
 
 #endif

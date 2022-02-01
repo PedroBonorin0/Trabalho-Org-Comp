@@ -1,7 +1,6 @@
 #include<iostream>
 #include "../headers/Mips.h"
 
-#include"../headers/Instrucao.h"
 #include"../headers/BancoRegistradores.h"
 #include"../headers/MemInstrucoes.h"
 
@@ -16,7 +15,8 @@ Mips::Mips(int isLeitura) {
 Mips::~Mips() {}
 
 void Mips::inicia() {
-  reset();
+  BancoRegistradores* bancoRegs = new BancoRegistradores();
+  reset(bancoRegs);
 
   if(this->isLeitura) iniciaComLeitura();
   else iniciaSemLeitura();
@@ -57,7 +57,7 @@ void Mips::iniciaComLeitura() {
       }
       
     }
-    cout << row.size()<<endl; 
+
     if (row.size() != 32){
           cout << "Foi inserido menos de 32 caracteres na instrucao.O programa nao pode ser executado!" << endl;
           return;
@@ -66,19 +66,13 @@ void Mips::iniciaComLeitura() {
     row.clear();
 
     linhas++;
-    cout << linhas << endl;
   }
   
   MemInstrucoes* memoriaInstrucoes = new MemInstrucoes();
-  for(int i = 0; i < linhas; i++) {   
-    Instrucao* instrucao = new Instrucao(instrucoes[i]);
-
-    memoriaInstrucoes->seqInstrucoes.push_back(instrucao->getInstrucao());
+  for(int i = 0; i < linhas; i++) {
+    memoriaInstrucoes->seqInstrucoes.push_back(instrucoes[i]);
     memoriaInstrucoes->somaPC();
-    
-    delete instrucao;
   }
-  cout << "Vai iniciar";
   iniciaSimulacao(*memoriaInstrucoes);
   delete memoriaInstrucoes;
 }
@@ -106,7 +100,6 @@ void Mips::iniciaSemLeitura() {
     }
   }
 
-  cout << row.size()<<endl; 
     if (row.size() != 32){
       cout << "Foi inserido menos de 32 caracteres na instrucao.O programa nao pode ser executado!" << endl;
       return;
@@ -120,22 +113,72 @@ long long int Mips::getInstrucao() {
   return this->instrucao;
 }
 
-void Mips::reset() {
+void Mips::reset(BancoRegistradores* regs) {
   cout << "\nLimpando memória\n";
   
-  // Limpar memória/registradores
+  regs->resetRegs();
   
   cout << "\nMemória Limpa\n";
 }
 
 void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
-  cout << "\nIciando simulação de Máquina MIPS\n";
+  cout << "\nIniciando simulação de Máquina MIPS\n";
 
-  for(int i = 0 ; i < memInstrucoes.seqInstrucoes.size(); i++) {
-    for(int j = 0 ; j < memInstrucoes.seqInstrucoes[i].size(); j++) {
-      cout << to_string(memInstrucoes.seqInstrucoes[i][j]) << " ";
+  BancoRegistradores* bancoRegs = new BancoRegistradores();
+
+  string ifAtual, idAtual, exeAtual, memAtual, wbAtual;
+  int indiceIF = 0, indiceID = 0, indiceEXE = 0, indiceMEM = 0, indiceWB = 0;
+
+  vector<int> regs;
+  string estadoIF;
+  string estadoID;
+  string estadoEXE;
+  string estadoMEM;
+  string estadoWB;
+
+  cout << "valor = " << memInstrucoes.seqInstrucoesString.size() << endl;
+
+  for (int a = 0; a < memInstrucoes.seqInstrucoesString.size() + 4; a++){
+    if(indiceIF >= memInstrucoes.seqInstrucoesString.size()) {
+      estadoIF = "vazio";
     }
-    cout << endl;
+
+    ifAtual = memInstrucoes.getProximaInstrucao();
+    estadoIF = ifAtual;
+    
+  //   if(indiceID <= -1) {
+  //     estadoID = "vazio";
+  //   } else {
+      
+  //   }
+
+  //   if(indiceEXE <= -1) {
+  //     estadoEXE = "vazio";
+  //   }
+
+  //   if(indiceMEM <= -1) {
+  //     estadoMEM = "vazio";
+  //   }
+
+  //   if(indiceWB <= -1) {
+  //     estadoWB = "vazio";
+  //   }
+    
+  //   cout << "PC = " << memInstrucoes.getPC() << "\n";
+  //   cout << "Banco de Regs = \n";
+  //   cout << "Instrucao no IF = \n";
+  //   cout << "Instrucao no ID = \n";
+  //   cout << "Instrucao no EXE = \n";
+  //   cout << "Instrucao no MEM = \n";
+  //   cout << "Instrucao no WB = \n";
+
+  //   indiceIF++;
+  //   indiceID = indiceIF - 1;
+  //   indiceEXE = indiceID - 1;
+  //   indiceMEM = indiceEXE - 1;
+  //   indiceWB = indiceMEM - 1;
   }
+  
+  delete bancoRegs;
 }
 
