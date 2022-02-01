@@ -16,11 +16,13 @@ using namespace std;
  * 4 - OR
  * 5 - SLT
  * 6 - SLL
+ 
  * 7 - ADDI
  * 8 - LW
  * 9 - SW
  * 10 - BEQ
  * 11 - BNE
+ 
  * 12 - J
  * 13 - JR
  * 14 - JAL
