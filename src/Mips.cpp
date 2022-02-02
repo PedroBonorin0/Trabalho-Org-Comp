@@ -101,11 +101,20 @@ void Mips::iniciaSemLeitura() {
     }
   }
 
-    if (row.size() != 32){
-      cout << "Foi inserido menos de 32 caracteres na instrucao.O programa nao pode ser executado!" << endl;
-      return;
-    }
-    instrucoes.push_back(row);
+  if (row.size() != 32){
+    cout << "Foi inserido menos de 32 caracteres na instrucao.O programa nao pode ser executado!" << endl;
+    return;
+  }
+  instrucoes.push_back(row);
+
+  MemInstrucoes* memoriaInstrucoes = new MemInstrucoes();
+  
+  memoriaInstrucoes->seqInstrucoes.push_back(instrucoes[0]);
+  memoriaInstrucoes->somaPC();
+  
+  memoriaInstrucoes->setInstrucoesString();
+  iniciaSimulacao(*memoriaInstrucoes);
+  delete memoriaInstrucoes;
 }
 
 void Mips::reset(BancoRegistradores* regs) {
