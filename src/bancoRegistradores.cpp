@@ -288,3 +288,7 @@ char BancoRegistradores::getTipoInstrucao() {
   return this->tipoInstrucao;
 }
 
+vector<int> BancoRegistradores::getInstrucaoParaALU() {
+  return this->instrucaoParaALU;
+}
+
