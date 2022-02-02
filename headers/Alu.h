@@ -18,9 +18,9 @@ class Alu {
 
     void decode(vector<int> comando, char tipo);
 
-    void decodeTypeR(vector<int> comando);
-    void decodeTypeI(vector<int> comando);
-    void decodeTypeJ(vector<int> comando);
+    int decodeTypeR(vector<int> comando);
+    int decodeTypeI(vector<int> comando);
+    int decodeTypeJ(vector<int> comando);
 };
 
 #endif

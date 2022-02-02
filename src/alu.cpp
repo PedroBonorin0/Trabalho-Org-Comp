@@ -32,7 +32,7 @@ void Alu::decode(vector<int> comando, char tipo) {
 }
 
 // ADD, SUB, AND, OR, SLT, SLL
-void Alu::decodeTypeR(vector<int> comando){
+int  Alu::decodeTypeR(vector<int> comando){
     int rs = comando[1];
     int rt = comando[2];
     int rd = comando[3];
@@ -42,35 +42,35 @@ void Alu::decodeTypeR(vector<int> comando){
     switch (funct)
     {
     case 100: //ADD
-        rd = rs + rt; 
+        return rs + rt; 
         break;
     case 200: //SUB
-        rd = rs - rt; 
+        return rs - rt; 
         break;
     case 300: //AND
         if(rs == 1 && rt == 1){
-            rd = 1;
+            return 1;
         }else{
-            rd = 0;
+            return 0;
         }
         break;
     case 400: //OR
         if(rs == 1 || rt == 1){
-            rd = 1;
+            return 1;
         }else{
-            rd = 0;
+            return 0;
         }
         break;
     case 500: //SLT
         if(rs < rt){
-            rd = 1;
+            return 1;
         }else{
-            rd = 0;
+            return 0;
         }
         break;
        
     case 600 : //SLL
-        rd = rt + shamt;
+        return rt + shamt;
         break;
         
     case 1300: //JR
@@ -83,7 +83,7 @@ void Alu::decodeTypeR(vector<int> comando){
 }
 
 // ADDI, LW, SW, BEQ, BNE
-void Alu::decodeTypeI(vector<int> comando){
+int Alu::decodeTypeI(vector<int> comando){
     int op = comando[0];
     int rs = comando[1];
     int rt = comando[2];
@@ -92,23 +92,24 @@ void Alu::decodeTypeI(vector<int> comando){
     switch (op)
     {
     case 700: //ADDI
-
+        return rt + adress;
         break;
     
     case 800: //LW
-
-        break;
+        return rt + rs;
     
     case 900: //SW
-
+        return rt + rs;
         break;
     
     case 1000: //BEQ
-
+        if(rs == rt)
+            return adress;
         break;
     
     case 1100: //BNE
-
+        if(rs != rt)
+            return adress; 
         break;
     
     default:
@@ -116,8 +117,8 @@ void Alu::decodeTypeI(vector<int> comando){
     }
 
 }     
-//J, JR, JAL
-void Alu::decodeTypeJ(vector<int> comando) {
+//J, JAL
+int Alu::decodeTypeJ(vector<int> comando) {
     int op = comando[0];
     int adress = comando[1];
     switch (op)
