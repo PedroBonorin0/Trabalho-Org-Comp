@@ -47,12 +47,12 @@
 // Temporarios Salvos
 #define S0 16
 #define S1 17
-#define S3 18
-#define S4 19
-#define S5 20
-#define S6 21
-#define S7 22
-#define S8 23
+#define S2 18
+#define S3 19
+#define S4 20
+#define S5 21
+#define S6 22
+#define S7 23
 
 // Ponteiro Global
 #define GP 28
@@ -88,50 +88,49 @@ void BancoRegistradores::resetRegs() {
 }
 
 void BancoRegistradores::setInstrucao(vector<int> comando) {
-  this->instrucao.resize(1);
+  this->instrucaoFinal.resize(1);
   int opcode = getOpcode(comando);
 
   if(opcode == 0) setTipoInstrucao('R');
 
   if(opcode == 4) {
     setTipoInstrucao('I');
-    this->instrucao[0] = BEQ;
+    this->instrucaoFinal[0] = BEQ;
   } 
 
   if(opcode == 5) {
     setTipoInstrucao('I');
-    this->instrucao[0] = BNE;
+    this->instrucaoFinal[0] = BNE;
   } 
 
   if(opcode == 8) {
     setTipoInstrucao('I');
-    this->instrucao[0] = ADDI;
+    this->instrucaoFinal[0] = ADDI;
   } 
 
   if(opcode == 35) {
     setTipoInstrucao('I');
-    this->instrucao[0] = LW;
+    this->instrucaoFinal[0] = LW;
   } 
 
   if(opcode == 43) {
     setTipoInstrucao('I');
-    this->instrucao[0] = SW;
+    this->instrucaoFinal[0] = SW;
   }
 
   if(opcode == 2) {
     setTipoInstrucao('J');
-    this->instrucao[0] = J;
+    this->instrucaoFinal[0] = J;
   }
 
   if(opcode == 3) {
     setTipoInstrucao('J');
-    this->instrucao[0] = JAL;
+    this->instrucaoFinal[0] = JAL;
   }
 
   if(getTipoInstrucao() == 'R') setCodesR(comando);
   if(getTipoInstrucao() == 'I') setCodesI(comando);
   if(getTipoInstrucao() == 'J') setCodesJ(comando);
-    
 }
 
 int BancoRegistradores::converteBinParaDec(string binario) {
@@ -157,10 +156,35 @@ int BancoRegistradores::getOpcode(vector<int> comando) {
   return converteBinParaDec(digitos);
 }
 
+int BancoRegistradores::getFunct(string comando) {
+  string digitos = "";
+
+  for(int i = 31; i > 25; i++) {
+    digitos += comando[i];
+  }
+
+  switch(converteBinParaDec(digitos)) {
+    case 0:
+      return SLL;
+    case 8:
+      return JR;
+    case 32:
+      return ADD;
+    case 34:
+      return SUB;
+    case 36:
+      return AND;
+    case 37:
+      return OR;
+    case 42:
+      return SLT;
+  }
+}
+
 
 void BancoRegistradores::setCodesR(vector<int> comando) {
-  this->instrucao.resize(6);
-  this->instrucao[0] = 0;
+  this->instrucaoFinal.resize(6);
+  this->instrucaoFinal[0] = 0;
   
   string digitos = "";
   int i = 6;
@@ -169,41 +193,47 @@ void BancoRegistradores::setCodesR(vector<int> comando) {
     digitos += to_string(comando[i]);
     i++;
   }
-  this->instrucao[1] = converteBinParaDec(digitos);
+  this->instrucaoFinal[1] = converteBinParaDec(digitos);
   digitos = "";
 
   while(i < 16) { // RT
     digitos += to_string(comando[i]);
     i++;
   }
-  this->instrucao[2] = converteBinParaDec(digitos);
+  this->instrucaoFinal[2] = converteBinParaDec(digitos);
   digitos = "";
 
   while(i < 21) { // RD
     digitos += to_string(comando[i]);
     i++;
   }
-  this->instrucao[3] = converteBinParaDec(digitos);
+  this->instrucaoFinal[3] = converteBinParaDec(digitos);
   digitos = "";
 
   while(i < 26) { // SHAMT
     digitos += to_string(comando[i]);
     i++;
   }
-  this->instrucao[4] = converteBinParaDec(digitos);
+  this->instrucaoFinal[4] = converteBinParaDec(digitos);
   digitos = "";
 
   while(i < 32) { // FUNCT
     digitos += to_string(comando[i]);
     i++;
   }
-  this->instrucao[5] = converteBinParaDec(digitos);
+  this->instrucaoFinal[5] = getFunct(digitos);
   digitos = "";
 
+  this->instrucaoParaALU[0] = this->instrucaoFinal[0];
+  this->instrucaoParaALU[1] = this->registradores[this->instrucaoFinal[1]];
+  this->instrucaoParaALU[2]= this->registradores[this->instrucaoFinal[2]];
+  this->instrucaoParaALU[3]= this->registradores[this->instrucaoFinal[3]];
+  this->instrucaoParaALU[4]= this->registradores[this->instrucaoFinal[4]];
+  this->instrucaoParaALU[5] = this->instrucaoFinal[5];
 }
 
 void BancoRegistradores::setCodesI(vector<int> comando) {
-  this->instrucao.resize(4);
+  this->instrucaoFinal.resize(4);
   string digitos = "";
   int i = 6;
 
@@ -211,26 +241,31 @@ void BancoRegistradores::setCodesI(vector<int> comando) {
     digitos += to_string(comando[i]);
     i++;
   }
-  this->instrucao[1] = converteBinParaDec(digitos);
+  this->instrucaoFinal[1] = converteBinParaDec(digitos);
   digitos = "";
   
   while(i < 16) { // RT
     digitos += to_string(comando[i]);
     i++;
   }
-  this->instrucao[2] = converteBinParaDec(digitos);
+  this->instrucaoFinal[2] = converteBinParaDec(digitos);
   digitos = "";
 
   while(i < 32) { // IMMEDIATE
     digitos += to_string(comando[i]);
     i++;
   }
-  this->instrucao[3] = converteBinParaDec(digitos);
+  this->instrucaoFinal[3] = converteBinParaDec(digitos);
   digitos = "";
+
+  this->instrucaoParaALU[0] = this->instrucaoFinal[0];
+  this->instrucaoParaALU[1] = this->registradores[this->instrucaoFinal[1]];
+  this->instrucaoParaALU[2]= this->registradores[this->instrucaoFinal[2]];
+  this->instrucaoParaALU[3]= this->instrucaoFinal[3];
 }
 
 void BancoRegistradores::setCodesJ(vector<int> comando) {
-  this->instrucao.resize(2);
+  this->instrucaoFinal.resize(2);
   string digitos = "";
   int i = 6;
 
@@ -238,9 +273,11 @@ void BancoRegistradores::setCodesJ(vector<int> comando) {
     digitos += to_string(comando[i]);
     i++;
   }
-  this->instrucao[1] = converteBinParaDec(digitos);
+  this->instrucaoFinal[1] = converteBinParaDec(digitos);
   digitos = "";
   
+  this->instrucaoParaALU[0] = this->instrucaoFinal[0];
+  this->instrucaoParaALU[1] = this->instrucaoFinal[1];
 }
 
 void BancoRegistradores::setTipoInstrucao(char tipo) {
@@ -250,3 +287,4 @@ void BancoRegistradores::setTipoInstrucao(char tipo) {
 char BancoRegistradores::getTipoInstrucao() {
   return this->tipoInstrucao;
 }
+

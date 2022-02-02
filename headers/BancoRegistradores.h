@@ -10,34 +10,35 @@ using namespace std;
 
 class BancoRegistradores {
   private:
-    vector<int> instrucao;
     char tipoInstrucao;
     vector<int> registradores;
+    string instrucao;
+    vector<int> instrucaoParaALU;
     vector<int> instrucaoFinal;
 
   public:
     BancoRegistradores();
     ~BancoRegistradores();
 
-    void setInstrucaoFinal(vector<int> instrucao);
-    vector<int> getInstrucaoFinal();
-
     int getValorDoReg(int reg);
     void setValorDoReg(int reg, int valor);
 
     void resetRegs();
-    void setInstrucao(vector<int> comando);
+    void setInstrucao(vector<int> instrucao);
 
     char getTipoInstrucao();
     void setTipoInstrucao(char tipo);
 
     int getOpcode(vector<int> comando);
+    int getFunct(string comando);
 
     int converteBinParaDec(string digitos);
 
     void setCodesR(vector<int> comando);
     void setCodesI(vector<int> comando);
     void setCodesJ(vector<int> comando);
+
+    vector<int> getInstrucaoParaALU();
 };
 
 #endif

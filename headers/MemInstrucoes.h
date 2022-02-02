@@ -20,7 +20,7 @@ class MemInstrucoes {
     ~MemInstrucoes() {};
 
     void somaPC() {this->pc += 4;};
-    void subPC() {this->pc -= 4;};
+    void subPC() {if(this->pc > 0) this->pc -= 4;};
 
     int getPC() {return this->pc;};
 

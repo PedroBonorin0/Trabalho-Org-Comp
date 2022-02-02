@@ -13,7 +13,6 @@ using namespace std;
 
 class Mips {
   private:
-    long long int instrucao;
     bool isLeitura;
     vector<vector<int> > instrucoes;
 

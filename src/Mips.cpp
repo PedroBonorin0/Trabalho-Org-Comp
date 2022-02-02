@@ -3,6 +3,7 @@
 
 #include"../headers/BancoRegistradores.h"
 #include"../headers/MemInstrucoes.h"
+#include"../headers/Alu.h"
 
 #define ZERO = 0;
 
@@ -108,12 +109,6 @@ void Mips::iniciaSemLeitura() {
     instrucoes.push_back(row);
 }
 
-
-//? Getters e Setters
-long long int Mips::getInstrucao() {
-  return this->instrucao;
-}
-
 void Mips::reset(BancoRegistradores* regs) {
   cout << "\nLimpando memória\n";
   
@@ -126,59 +121,74 @@ void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
   cout << "\nIniciando simulação de Máquina MIPS\n";
   
   BancoRegistradores* bancoRegs = new BancoRegistradores();
+  Alu* alu = new Alu();
 
   string ifAtual, idAtual, exeAtual, memAtual, wbAtual;
   int indiceIF = 0, indiceID = 0, indiceEXE = 0, indiceMEM = 0, indiceWB = 0;
 
-  vector<int> regs;
-  string estadoIF;
-  string estadoID;
-  string estadoEXE;
-  string estadoMEM;
-  string estadoWB;
+  vector<string> estados;
+  estados.resize(5);
 
-  
+  vector<int> regs;
+  // string estadoIF;
+  // string estadoID;
+  // string estadoEXE;
+  // string estadoMEM;
+  // string estadoWB;
 
   for (int a = 0; a < memInstrucoes.seqInstrucoesString.size() + 4; a++){
-    cout << a << endl;
-    if(indiceIF >= memInstrucoes.seqInstrucoesString.size()) {
-      estadoIF = "vazio";
+    if(indiceWB <= -1) {
+      estados[4] = "vazio";
+    } else {
+
+      
+      estados[4] = estados[3];
     }
 
-    // ifAtual = memInstrucoes.getProximaInstrucao();
-    // estadoIF = ifAtual;
-    
-  //   if(indiceID <= -1) {
-  //     estadoID = "vazio";
-  //   } else {
+    if(indiceMEM <= -1) {
+      estados[3] = "vazio";
+    } else {
+
+
+      estados[3] = estados[2];
+    }
+
+    if(indiceEXE <= -1) {
+      estados[2] = "vazio";
+    } else {
       
-  //   }
+      estados[2] = estados[1];
+    }
 
-  //   if(indiceEXE <= -1) {
-  //     estadoEXE = "vazio";
-  //   }
+    if(indiceID <= -1) {
+      estados[1] = "vazio";
+    } else {
+      bancoRegs->setInstrucao(this->instrucoes[a - 1]);
+      alu->decode(bancoRegs->getInstrucaoParaALU(), bancoRegs->getTipoInstrucao());
+      estados[1] = estados[0];
+    }
 
-  //   if(indiceMEM <= -1) {
-  //     estadoMEM = "vazio";
-  //   }
+    if(indiceIF >= memInstrucoes.seqInstrucoesString.size()) {
+      estados[0] = "vazio";
+    }
 
-  //   if(indiceWB <= -1) {
-  //     estadoWB = "vazio";
-  //   }
+    ifAtual = memInstrucoes.getProximaInstrucao();
+    estados[0] = ifAtual;
+
     
-  //   cout << "PC = " << memInstrucoes.getPC() << "\n";
+    cout << "PC = " << memInstrucoes.getPC() << "\n";
   //   cout << "Banco de Regs = \n";
-  //   cout << "Instrucao no IF = \n";
-  //   cout << "Instrucao no ID = \n";
-  //   cout << "Instrucao no EXE = \n";
-  //   cout << "Instrucao no MEM = \n";
-  //   cout << "Instrucao no WB = \n";
+    cout << "Instrucao no IF = " << estados[0] << "\n";
+    cout << "Instrucao no ID = " << estados[1] <<  "\n";
+    cout << "Instrucao no EXE = " << estados[2] <<  "\n";
+    cout << "Instrucao no MEM = " << estados[3] <<  "\n";
+    cout << "Instrucao no WB = " << estados[4] <<  "\n";
 
-  //   indiceIF++;
-  //   indiceID = indiceIF - 1;
-  //   indiceEXE = indiceID - 1;
-  //   indiceMEM = indiceEXE - 1;
-  //   indiceWB = indiceMEM - 1;
+    indiceIF++;
+    indiceID = indiceIF - 1;
+    indiceEXE = indiceID - 1;
+    indiceMEM = indiceEXE - 1;
+    indiceWB = indiceMEM - 1;
   }
   
   delete bancoRegs;

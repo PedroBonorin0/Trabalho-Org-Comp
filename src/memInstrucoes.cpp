@@ -9,7 +9,6 @@ MemInstrucoes::MemInstrucoes() {
 }
 
 string MemInstrucoes::getProximaInstrucao() {
-  setInstrucoesString();
   subPC();
   return seqInstrucoesString.at(0);
 }
