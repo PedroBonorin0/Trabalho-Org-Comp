@@ -8,15 +8,16 @@ MemInstrucoes::MemInstrucoes() {
   this->pc = 0;
 }
 
-string MemInstrucoes::getProximaInstrucao() {
+string MemInstrucoes::getProximaInstrucao(int a) {
   subPC();
-  return seqInstrucoesString.at(0);
+  return seqInstrucoesString[a];
 }
 
 void MemInstrucoes::setInstrucoesString() {
   string comando = "";
 
   for(int i = 0; i < seqInstrucoes.size(); i++) {
+    comando = "";
     for(int j = 0; j < 32; j++)
       comando += to_string(seqInstrucoes[i][j]); 
 

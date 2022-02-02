@@ -26,7 +26,7 @@ class MemInstrucoes {
 
     void setInstrucoesString();
     
-    string getProximaInstrucao();
+    string getProximaInstrucao(int a);
 };  
 
 #endif

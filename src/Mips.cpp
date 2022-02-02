@@ -27,9 +27,8 @@ void Mips::inicia() {
 void Mips::iniciaComLeitura() {
   string caminhoArquivo, linha;
   int comando;
-  caminhoArquivo = "./comandos.txt";
-  // cout << "\nDigite o caminho a partir da pasta atual para o arquivo a ser lido\n";
-  // cin >> caminhoArquivo;
+  cout << "\nDigite o caminho a partir da pasta atual para o arquivo a ser lido\n";
+  cin >> caminhoArquivo;
 
   ifstream arquivo;
   arquivo.open(caminhoArquivo);
@@ -124,20 +123,15 @@ void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
   Alu* alu = new Alu();
 
   string ifAtual, idAtual, exeAtual, memAtual, wbAtual;
-  int indiceIF = 0, indiceID = 0, indiceEXE = 0, indiceMEM = 0, indiceWB = 0;
+  int indiceIF = 0, indiceID = -1, indiceEXE = -2, indiceMEM = -3, indiceWB = -4;
 
   vector<string> estados;
   estados.resize(5);
 
   vector<int> regs;
-  // string estadoIF;
-  // string estadoID;
-  // string estadoEXE;
-  // string estadoMEM;
-  // string estadoWB;
 
   for (int a = 0; a < memInstrucoes.seqInstrucoesString.size() + 4; a++){
-    if(indiceWB <= -1) {
+    if(indiceWB < 0 || indiceWB >= memInstrucoes.seqInstrucoesString.size() + 4) {
       estados[4] = "vazio";
     } else {
 
@@ -145,7 +139,7 @@ void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
       estados[4] = estados[3];
     }
 
-    if(indiceMEM <= -1) {
+    if(indiceMEM < 0 || indiceMEM >= memInstrucoes.seqInstrucoesString.size() + 3) {
       estados[3] = "vazio";
     } else {
 
@@ -153,29 +147,30 @@ void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
       estados[3] = estados[2];
     }
 
-    if(indiceEXE <= -1) {
+    if(indiceEXE < 0 || indiceEXE >= memInstrucoes.seqInstrucoesString.size() + 2) {
       estados[2] = "vazio";
     } else {
       
       estados[2] = estados[1];
     }
 
-    if(indiceID <= -1) {
+    if(indiceID < 0 || indiceID >= memInstrucoes.seqInstrucoesString.size() + 1) {
       estados[1] = "vazio";
     } else {
-      bancoRegs->setInstrucao(this->instrucoes[a - 1]);
-      alu->decode(bancoRegs->getInstrucaoParaALU(), bancoRegs->getTipoInstrucao());
+      // bancoRegs->setInstrucao(this->instrucoes[a - 1]);
+      // alu->decode(bancoRegs->getInstrucaoParaALU(), bancoRegs->getTipoInstrucao());
       estados[1] = estados[0];
     }
 
     if(indiceIF >= memInstrucoes.seqInstrucoesString.size()) {
       estados[0] = "vazio";
+    } else {
+        ifAtual = memInstrucoes.getProximaInstrucao(a);
+        estados[0] = ifAtual;
     }
 
-    ifAtual = memInstrucoes.getProximaInstrucao();
-    estados[0] = ifAtual;
 
-    
+    cout << "\n--------------------------------\n";
     cout << "PC = " << memInstrucoes.getPC() << "\n";
   //   cout << "Banco de Regs = \n";
     cout << "Instrucao no IF = " << estados[0] << "\n";
@@ -185,10 +180,10 @@ void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
     cout << "Instrucao no WB = " << estados[4] <<  "\n";
 
     indiceIF++;
-    indiceID = indiceIF - 1;
-    indiceEXE = indiceID - 1;
-    indiceMEM = indiceEXE - 1;
-    indiceWB = indiceMEM - 1;
+    indiceID++;
+    indiceEXE++;
+    indiceMEM++;
+    indiceWB++;
   }
   
   delete bancoRegs;

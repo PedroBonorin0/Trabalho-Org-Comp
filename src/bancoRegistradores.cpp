@@ -227,7 +227,7 @@ void BancoRegistradores::setCodesR(vector<int> comando) {
   this->instrucaoParaALU[0] = this->instrucaoFinal[0];
   this->instrucaoParaALU[1] = this->registradores[this->instrucaoFinal[1]];
   this->instrucaoParaALU[2]= this->registradores[this->instrucaoFinal[2]];
-  this->instrucaoParaALU[3]= this->registradores[this->instrucaoFinal[3]];
+  this->instrucaoParaALU[3]= this->instrucaoFinal[3];
   this->instrucaoParaALU[4]= this->registradores[this->instrucaoFinal[4]];
   this->instrucaoParaALU[5] = this->instrucaoFinal[5];
 }
