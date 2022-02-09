@@ -32,6 +32,8 @@ class Mips {
     void iniciaSemLeitura();
 
     void iniciaSimulacao(MemInstrucoes& memoria);
+
+    void impressao(int pc, vector<string> estados);
 };  
 
 #endif

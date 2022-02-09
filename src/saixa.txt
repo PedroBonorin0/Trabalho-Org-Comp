@@ -1,0 +1,384 @@
+
+--------------------------------
+PC = 12
+Instrucao no IF = 10001101001010000000010010110000
+Instrucao no ID = vazio
+Instrucao no EXE = vazio
+Instrucao no MEM = vazio
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 8
+Instrucao no IF = 00000010010010000100000000100000
+Instrucao no ID = 10001101001010000000010010110000
+Instrucao no EXE = vazio
+Instrucao no MEM = vazio
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 4
+Instrucao no IF = 00001000000000000000000011110101
+Instrucao no ID = 00000010010010000100000000100000
+Instrucao no EXE = 10001101001010000000010010110000
+Instrucao no MEM = vazio
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = 10000000000010001010101010101010
+Instrucao no ID = 00001000000000000000000011110101
+Instrucao no EXE = 00000010010010000100000000100000
+Instrucao no MEM = 10001101001010000000010010110000
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = 10000000000010001010101010101010
+Instrucao no EXE = 00001000000000000000000011110101
+Instrucao no MEM = 00000010010010000100000000100000
+Instrucao no WB = 10001101001010000000010010110000
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = vazio
+Instrucao no EXE = 10000000000010001010101010101010
+Instrucao no MEM = 00001000000000000000000011110101
+Instrucao no WB = 00000010010010000100000000100000
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = vazio
+Instrucao no EXE = vazio
+Instrucao no MEM = 10000000000010001010101010101010
+Instrucao no WB = 00001000000000000000000011110101
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = vazio
+Instrucao no EXE = vazio
+Instrucao no MEM = vazio
+Instrucao no WB = 10000000000010001010101010101010
+
+--------------------------------
+PC = 0
+Instrucao no IF = 10001101001010000000010010110000
+Instrucao no ID = vazio
+Instrucao no EXE = vazio
+Instrucao no MEM = vazio
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = 10001101001010000000010010110000
+Instrucao no EXE = vazio
+Instrucao no MEM = vazio
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = vazio
+Instrucao no EXE = 10001101001010000000010010110000
+Instrucao no MEM = vazio
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = vazio
+Instrucao no EXE = vazio
+Instrucao no MEM = 10001101001010000000010010110000
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = vazio
+Instrucao no EXE = vazio
+Instrucao no MEM = vazio
+Instrucao no WB = 10001101001010000000010010110000
+
+--------------------------------
+PC = 0
+Instrucao no IF = 10001101001010000000010010110000
+Instrucao no ID = vazio
+Instrucao no EXE = vazio
+Instrucao no MEM = vazio
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = 10001101001010000000010010110000
+Instrucao no EXE = vazio
+Instrucao no MEM = vazio
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = vazio
+Instrucao no EXE = 10001101001010000000010010110000
+Instrucao no MEM = vazio
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = vazio
+Instrucao no EXE = vazio
+Instrucao no MEM = 10001101001010000000010010110000
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = vazio
+Instrucao no EXE = vazio
+Instrucao no MEM = vazio
+Instrucao no WB = 10001101001010000000010010110000
+
+--------------------------------
+PC = 0
+Instrucao no IF = 10001101001010000000010010110000
+Instrucao no ID = vazio
+Instrucao no EXE = vazio
+Instrucao no MEM = vazio
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = 10001101001010000000010010110000
+Instrucao no EXE = vazio
+Instrucao no MEM = vazio
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = vazio
+Instrucao no EXE = 10001101001010000000010010110000
+Instrucao no MEM = vazio
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = vazio
+Instrucao no EXE = vazio
+Instrucao no MEM = 10001101001010000000010010110000
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = vazio
+Instrucao no EXE = vazio
+Instrucao no MEM = vazio
+Instrucao no WB = 10001101001010000000010010110000
+
+--------------------------------
+PC = 0
+Instrucao no IF = 10001101001010000000010010110000
+Instrucao no ID = vazio
+Instrucao no EXE = vazio
+Instrucao no MEM = vazio
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = 10001101001010000000010010110000
+Instrucao no EXE = vazio
+Instrucao no MEM = vazio
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = vazio
+Instrucao no EXE = 10001101001010000000010010110000
+Instrucao no MEM = vazio
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = vazio
+Instrucao no EXE = vazio
+Instrucao no MEM = 10001101001010000000010010110000
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = vazio
+Instrucao no EXE = vazio
+Instrucao no MEM = vazio
+Instrucao no WB = 10001101001010000000010010110000
+
+--------------------------------
+PC = 0
+Instrucao no IF = 10001101001010000000010010110000
+Instrucao no ID = vazio
+Instrucao no EXE = vazio
+Instrucao no MEM = vazio
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = 10001101001010000000010010110000
+Instrucao no EXE = vazio
+Instrucao no MEM = vazio
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = vazio
+Instrucao no EXE = 10001101001010000000010010110000
+Instrucao no MEM = vazio
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = vazio
+Instrucao no EXE = vazio
+Instrucao no MEM = 10001101001010000000010010110000
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = vazio
+Instrucao no EXE = vazio
+Instrucao no MEM = vazio
+Instrucao no WB = 10001101001010000000010010110000
+
+--------------------------------
+PC = 0
+Instrucao no IF = 10001101001010000000010010110000
+Instrucao no ID = vazio
+Instrucao no EXE = vazio
+Instrucao no MEM = vazio
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = 10001101001010000000010010110000
+Instrucao no EXE = vazio
+Instrucao no MEM = vazio
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = vazio
+Instrucao no EXE = 10001101001010000000010010110000
+Instrucao no MEM = vazio
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = vazio
+Instrucao no EXE = vazio
+Instrucao no MEM = 10001101001010000000010010110000
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = vazio
+Instrucao no EXE = vazio
+Instrucao no MEM = vazio
+Instrucao no WB = 10001101001010000000010010110000
+
+--------------------------------
+PC = 0
+Instrucao no IF = 10001101001010000000010010110000
+Instrucao no ID = vazio
+Instrucao no EXE = vazio
+Instrucao no MEM = vazio
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = 10001101001010000000010010110000
+Instrucao no EXE = vazio
+Instrucao no MEM = vazio
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = vazio
+Instrucao no EXE = 10001101001010000000010010110000
+Instrucao no MEM = vazio
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = vazio
+Instrucao no EXE = vazio
+Instrucao no MEM = 10001101001010000000010010110000
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = vazio
+Instrucao no EXE = vazio
+Instrucao no MEM = vazio
+Instrucao no WB = 10001101001010000000010010110000
+
+--------------------------------
+PC = 0
+Instrucao no IF = 10001101001010000000010010110000
+Instrucao no ID = vazio
+Instrucao no EXE = vazio
+Instrucao no MEM = vazio
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = 10001101001010000000010010110000
+Instrucao no EXE = vazio
+Instrucao no MEM = vazio
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = vazio
+Instrucao no EXE = 10001101001010000000010010110000
+Instrucao no MEM = vazio
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = vazio
+Instrucao no EXE = vazio
+Instrucao no MEM = 10001101001010000000010010110000
+Instrucao no WB = vazio
+
+--------------------------------
+PC = 0
+Instrucao no IF = vazio
+Instrucao no ID = vazio
+Instrucao no EXE = vazio
+Instrucao no MEM = vazio
+Instrucao no WB = 10001101001010000000010010110000

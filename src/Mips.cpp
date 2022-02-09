@@ -81,12 +81,17 @@ void Mips::iniciaComLeitura() {
 void Mips::iniciaSemLeitura() {
   string instrucao;
   int comando;
-  cout << "\nDigite a instrução: " << endl;   
-  cin >> instrucao; 
+  bool sair = false;
+  int positivo;
 
-  vector<int> row;
 
-  for (int i = 0; i < instrucao.size(); i++){
+  while(sair != true){
+    cout << "\nDigite a instrução: " << endl;   
+    cin  >> instrucao; 
+
+    vector<int> row;
+
+    for (int i = 0; i < instrucao.size(); i++){
     comando = instrucao[i];
     if(comando == 48){   // = 0
         row.push_back(0);
@@ -94,18 +99,37 @@ void Mips::iniciaSemLeitura() {
     }else {
       if(comando == 49) {
         row.push_back(1);
-      } else {
-        cout << "Foi inserido no codigo das instrucoes valores diferentes de binario(0 ou 1)" << endl;
-        return;
+      }else {
+          cout << "Foi inserido no codigo das instrucoes valores diferentes de binario(0 ou 1)" << endl;
+          cout << "O programa sera reiniciado para a parte de leitura de instrucao via teclado!" << endl;
+          return iniciaSemLeitura();
+        }
       }
     }
-  }
 
-  if (row.size() != 32){
-    cout << "Foi inserido menos de 32 caracteres na instrucao.O programa nao pode ser executado!" << endl;
-    return;
+    if (row.size() != 32){
+      cout << "Foi inserido um valordiferente de 32 caracteres na instrucao. O programa nao pode ser executado!" << endl;
+      cout << "O programa sera reiniciado para a parte de leitura de instrucao via teclado!" << endl;
+      return iniciaSemLeitura();
+    }
+    instrucoes.push_back(row);
+    
+    positivo = 0 ;
+    
+    
+      
+    cout << " Deseja digitar mais uma instrucao?     1->SIM        Qualquer outro comando sera tratado com NAO! " << endl;
+    cin  >> positivo;  
+
+    if(positivo == 1){
+      positivo = 0;
+      sair = false;    
+    }else{
+      positivo = 1;
+      sair = true;
+    }
+    
   }
-  instrucoes.push_back(row);
 
   MemInstrucoes* memoriaInstrucoes = new MemInstrucoes();
   
@@ -178,16 +202,8 @@ void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
         estados[0] = ifAtual;
     }
 
-
-    cout << "\n--------------------------------\n";
-    cout << "PC = " << memInstrucoes.getPC() << "\n";
-  //   cout << "Banco de Regs = \n";
-    cout << "Instrucao no IF = " << estados[0] << "\n";
-    cout << "Instrucao no ID = " << estados[1] <<  "\n";
-    cout << "Instrucao no EXE = " << estados[2] <<  "\n";
-    cout << "Instrucao no MEM = " << estados[3] <<  "\n";
-    cout << "Instrucao no WB = " << estados[4] <<  "\n";
-
+    impressao(memInstrucoes.getPC(),estados);
+    
     indiceIF++;
     indiceID++;
     indiceEXE++;
@@ -198,3 +214,35 @@ void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
   delete bancoRegs;
 }
 
+
+
+
+void Mips::impressao(int pc, vector<string> estados){
+  ofstream arquivotxt("saixa.txt",ios::app);
+
+
+
+  // IMPRESSAO DE CADA ETAPA 
+  cout << "\n--------------------------------\n";
+  cout << "PC = " << pc << "\n";
+  //   cout << "Banco de Regs = \n";
+  cout << "Instrucao no IF = " << estados[0] << "\n";
+  cout << "Instrucao no ID = " << estados[1] <<  "\n";
+  cout << "Instrucao no EXE = " << estados[2] <<  "\n";
+  cout << "Instrucao no MEM = " << estados[3] <<  "\n";
+  cout << "Instrucao no WB = " << estados[4] <<  "\n";
+  
+  // ESCRITA DE CADA ETAPA 
+
+  arquivotxt << "\n--------------------------------\n";
+  arquivotxt << "PC = " << pc << "\n";
+  //   arquivotxt << "Banco de Regs = \n";
+  arquivotxt << "Instrucao no IF = " << estados[0] << "\n";
+  arquivotxt << "Instrucao no ID = " << estados[1] <<  "\n";
+  arquivotxt << "Instrucao no EXE = " << estados[2] <<  "\n";
+  arquivotxt << "Instrucao no MEM = " << estados[3] <<  "\n";
+  arquivotxt << "Instrucao no WB = " << estados[4] <<  "\n";
+
+
+  arquivotxt.close();
+}
