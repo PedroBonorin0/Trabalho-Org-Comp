@@ -132,3 +132,5 @@ int Alu::decodeTypeJ(vector<int> comando) {
         break;
     }
 }
+
+

@@ -14,7 +14,7 @@ using namespace std;
 class Mips {
   private:
     bool isLeitura;
-    vector<vector<int>> instrucoes;
+    vector<vector<int> > instrucoes;
 
   public:
     Mips(int isLeitura);
