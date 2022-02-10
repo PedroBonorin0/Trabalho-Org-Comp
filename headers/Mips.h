@@ -14,7 +14,7 @@ using namespace std;
 class Mips {
   private:
     bool isLeitura;
-    vector<vector<int> > instrucoes;
+    vector<vector<int>> instrucoes;
 
   public:
     Mips(int isLeitura);
@@ -33,7 +33,7 @@ class Mips {
 
     void iniciaSimulacao(MemInstrucoes& memoria);
 
-    void impressao(int pc, vector<string> estados);
+    void impressao(int pc, vector<string> estados, int a);
 };  
 
 #endif
