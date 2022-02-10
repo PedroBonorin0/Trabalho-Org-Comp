@@ -39,7 +39,7 @@ int  Alu::decodeTypeR(vector<int> registradores, vector<int> comando){
     int rd = comando[3];
     int shamt = comando[4];
     int funct = comando[5];
-    cout << "rs: " << comando[1] << "rt: " << comando[2] << "rd: " << comando[3] << endl;
+    
     
     switch (funct)
     {
@@ -86,33 +86,38 @@ int  Alu::decodeTypeR(vector<int> registradores, vector<int> comando){
 }
 
 // ADDI, LW, SW, BEQ, BNE
-int Alu::decodeTypeI(vector<int> registradores, vector<int> comando){
+bool Alu::decodeTypeI(vector<int> registradores, vector<int> comando){
     int op = comando[0];
     int rs = comando[1];
     int rt = comando[2];
     int adress = comando[3];
-    cout << "rs: " << comando[1] << "rt: " << comando[2] << "adress: " << comando[3] << endl;
+
     switch (op)
     {
     case 700: //ADDI
         registradores[rs] =  rt + adress;
+        return false;
         break;
     
     case 800: //LW
         registradores[rs] = registradores[adress + rt ];
+        return true;
     
     case 900: //SW
         registradores[adress + rt ] = registradores[rs];
+        return true;
         break;
     
     case 1000: //BEQ
         if(rs == rt)
             registradores[rs] =  adress;
+            return false;
         break;
     
     case 1100: //BNE
         if(rs != rt)
             registradores[rs] =  adress; 
+            return false;
         break;
     
     default:
@@ -124,11 +129,10 @@ int Alu::decodeTypeI(vector<int> registradores, vector<int> comando){
 int Alu::decodeTypeJ(vector<int> registradores, vector<int> comando) {
     int op = comando[0];
     int adress = comando[1];
-    cout << "op: " << comando[0] << "adress: " << comando[1]  << endl;
     switch (op)
     {
     case 1200: //J
-        
+
         break;
     case 1400: //JAL
 
