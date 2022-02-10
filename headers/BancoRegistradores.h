@@ -11,7 +11,6 @@ using namespace std;
 class BancoRegistradores {
   private:
     char tipoInstrucao;
-    vector<int> registradores;
     string instrucao;
     vector<int> instrucaoParaALU;
     vector<int> instrucaoFinal;
@@ -20,6 +19,8 @@ class BancoRegistradores {
     BancoRegistradores();
     ~BancoRegistradores();
 
+    vector<int> registradores;
+    
     int getValorDoReg(int reg);
     void setValorDoReg(int reg, int valor);
 

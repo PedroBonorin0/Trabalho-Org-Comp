@@ -201,7 +201,7 @@ void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
         estados[1] = bancoRegs->getTipoInstrucao();
       }
     }
-
+    
     if(indiceIF >= memInstrucoes.seqInstrucoesString.size()) {
       estados[0] = "vazio";
     } else {

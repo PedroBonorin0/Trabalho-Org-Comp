@@ -227,11 +227,11 @@ void BancoRegistradores::setCodesR(vector<int> comando) {
   digitos = "";
 
   this->instrucaoParaALU[0] = this->instrucaoFinal[0];
-  this->instrucaoParaALU[1] = this->registradores[this->instrucaoFinal[1]];
-  this->instrucaoParaALU[2]= this->registradores[this->instrucaoFinal[2]];
-  this->instrucaoParaALU[3]= this->instrucaoFinal[3];
-  this->instrucaoParaALU[4]= this->registradores[this->instrucaoFinal[4]];
-  this->instrucaoParaALU[5] = this->instrucaoFinal[5];
+  this->instrucaoParaALU[1] = this->registradores[this->instrucaoFinal[1]]; // VALOR
+  this->instrucaoParaALU[2]= this->registradores[this->instrucaoFinal[2]];  // VALOR  
+  this->instrucaoParaALU[3]= this->instrucaoFinal[3];       // INDICE       
+  this->instrucaoParaALU[4]= this->registradores[this->instrucaoFinal[4]];  //VALOR 
+  this->instrucaoParaALU[5] = this->instrucaoFinal[5];    // INDICE 
 }
 
 void BancoRegistradores::setCodesI(vector<int> comando) {
