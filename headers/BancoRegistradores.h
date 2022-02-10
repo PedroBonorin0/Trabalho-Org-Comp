@@ -16,6 +16,8 @@ class BancoRegistradores {
     vector<int> instrucaoFinal;
 
   public:
+    vector<int> registradores;
+    
     BancoRegistradores();
     ~BancoRegistradores();
 
