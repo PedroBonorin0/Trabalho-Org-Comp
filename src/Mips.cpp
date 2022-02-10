@@ -27,8 +27,9 @@ void Mips::inicia() {
 void Mips::iniciaComLeitura() {
   string caminhoArquivo, linha;
   int comando;
-  cout << "\nDigite o caminho a partir da pasta atual para o arquivo a ser lido\n";
-  cin >> caminhoArquivo;
+  // cout << "\nDigite o caminho a partir da pasta atual para o arquivo a ser lido\n";
+  // cin >> caminhoArquivo;
+  caminhoArquivo = "./comandos.txt";
 
   ifstream arquivo;
   arquivo.open(caminhoArquivo);
@@ -146,6 +147,11 @@ void Mips::reset(BancoRegistradores* regs) {
   
   cout << "\nMemória Limpa\n";
 }
+// IF : Busca de instruções
+// ID : Decodificação de instruções e leitura de registradores
+// EX: Execução ou cálculo do endereço
+// MEM: Acesso à memória de dados
+// WB (Write Back): Escrita do resultado
 
 void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
   cout << "\nIniciando simulação de Máquina MIPS\n";
@@ -181,6 +187,7 @@ void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
     if(indiceEXE < 0 || indiceEXE >= memInstrucoes.seqInstrucoesString.size() + 2) {
       estados[2] = "vazio";
     } else {
+
       
       estados[2] = estados[1];
     }
@@ -188,11 +195,13 @@ void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
     if(indiceID < 0 || indiceID >= memInstrucoes.seqInstrucoesString.size() + 1) {
       estados[1] = "vazio";
     } else {
+
       if(this->instrucoes[a - 1].size() == 32) {
         bancoRegs->setInstrucao(this->instrucoes[a - 1]);
         alu->decode(bancoRegs->getInstrucaoParaALU(), bancoRegs->getTipoInstrucao());
+        estados[1] = bancoRegs->getTipoInstrucao();
       }
-      estados[1] = estados[0];
+
     }
 
     if(indiceIF >= memInstrucoes.seqInstrucoesString.size()) {

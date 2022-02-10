@@ -9,14 +9,14 @@ int main(int argc, char const *argv[]) {
   
   cout << "\nPROGRAMA INICIADO" << endl;
 
-  int leitura;
+  int leitura = 1;
 
   do{
-    cout << "\nDigite: " << endl;
-    cout << "1 - Leitura de arquivo;" << endl;
-    cout << "2 - Digitação de comandos;" << endl;
+    // cout << "\nDigite: " << endl;
+    // cout << "1 - Leitura de arquivo;" << endl;
+    // cout << "2 - Digitação de comandos;" << endl;
 
-    cin >> leitura;
+    // cin >> leitura;
 
     if(leitura != 1 && leitura != 2)
       cout << "\nValor inválido..." << endl;
