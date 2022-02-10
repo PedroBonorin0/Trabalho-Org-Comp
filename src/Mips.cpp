@@ -180,7 +180,6 @@ void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
     if(indiceMEM < 0 || indiceMEM >= memInstrucoes.seqInstrucoesString.size() + 3) {
       estados[3] = "vazio";
     } else {
-      
 
       estados[3] = estados[2];
     }

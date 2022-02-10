@@ -11,12 +11,13 @@ using namespace std;
 class BancoRegistradores {
   private:
     char tipoInstrucao;
-    vector<int> registradores;
     string instrucao;
     vector<int> instrucaoParaALU;
     vector<int> instrucaoFinal;
 
   public:
+    vector<int> registradores;
+    
     BancoRegistradores();
     ~BancoRegistradores();
 

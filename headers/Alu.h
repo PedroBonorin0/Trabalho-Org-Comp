@@ -16,11 +16,11 @@ class Alu {
     Alu();
     ~Alu();
 
-    void decode(vector<int> comando, char tipo);
+    void decode(vector<int> registradores, vector<int> comando, char tipo);
 
-    int decodeTypeR(vector<int> comando);
-    int decodeTypeI(vector<int> comando);
-    int decodeTypeJ(vector<int> comando);
+    int decodeTypeR(vector<int> registradores, vector<int> comando);
+    int decodeTypeI(vector<int> registradores, vector<int> comando);
+    int decodeTypeJ(vector<int> registradores, vector<int> comando);
 };
 
 #endif

@@ -4,7 +4,7 @@
 --------------------------------
 PC = 36
 Instrucao no IF = 10001101001010000000010010110000
-Instrucao no ID = vazio
+Instrucao no ID = tipovazio
 Instrucao no EXE = vazio
 Instrucao no MEM = vazio
 Instrucao no WB = vazio
@@ -12,7 +12,7 @@ Instrucao no WB = vazio
 --------------------------------
 PC = 32
 Instrucao no IF = 00000010010010000100000000100000
-Instrucao no ID = I
+Instrucao no ID = tipoI
 Instrucao no EXE = vazio
 Instrucao no MEM = vazio
 Instrucao no WB = vazio
@@ -20,7 +20,7 @@ Instrucao no WB = vazio
 --------------------------------
 PC = 28
 Instrucao no IF = 00001000000000000000000011110101
-Instrucao no ID = R
+Instrucao no ID = tipoR
 Instrucao no EXE = I
 Instrucao no MEM = vazio
 Instrucao no WB = vazio
@@ -28,7 +28,7 @@ Instrucao no WB = vazio
 --------------------------------
 PC = 24
 Instrucao no IF = 10000000000010001010101010101010
-Instrucao no ID = J
+Instrucao no ID = tipoJ
 Instrucao no EXE = R
 Instrucao no MEM = I
 Instrucao no WB = vazio
@@ -36,7 +36,7 @@ Instrucao no WB = vazio
 --------------------------------
 PC = 20
 Instrucao no IF = 10000000000010001010101010101010
-Instrucao no ID = J
+Instrucao no ID = tipoJ
 Instrucao no EXE = J
 Instrucao no MEM = R
 Instrucao no WB = I
@@ -44,7 +44,7 @@ Instrucao no WB = I
 --------------------------------
 PC = 16
 Instrucao no IF = 00001000000000000000000011110101
-Instrucao no ID = J
+Instrucao no ID = tipoJ
 Instrucao no EXE = J
 Instrucao no MEM = J
 Instrucao no WB = R
@@ -52,7 +52,7 @@ Instrucao no WB = R
 --------------------------------
 PC = 12
 Instrucao no IF = 10001101001010000000010010110000
-Instrucao no ID = J
+Instrucao no ID = tipoJ
 Instrucao no EXE = J
 Instrucao no MEM = J
 Instrucao no WB = J
@@ -60,7 +60,7 @@ Instrucao no WB = J
 --------------------------------
 PC = 8
 Instrucao no IF = 10000000000010001010101010101010
-Instrucao no ID = I
+Instrucao no ID = tipoI
 Instrucao no EXE = J
 Instrucao no MEM = J
 Instrucao no WB = J
@@ -68,7 +68,7 @@ Instrucao no WB = J
 --------------------------------
 PC = 4
 Instrucao no IF = 10000000000010001010101010101010
-Instrucao no ID = I
+Instrucao no ID = tipoI
 Instrucao no EXE = I
 Instrucao no MEM = J
 Instrucao no WB = J
@@ -76,7 +76,7 @@ Instrucao no WB = J
 --------------------------------
 PC = 0
 Instrucao no IF = 00001000000000000000000011110101
-Instrucao no ID = I
+Instrucao no ID = tipoI
 Instrucao no EXE = I
 Instrucao no MEM = I
 Instrucao no WB = J
@@ -84,7 +84,7 @@ Instrucao no WB = J
 --------------------------------
 PC = 0
 Instrucao no IF = vazio
-Instrucao no ID = J
+Instrucao no ID = tipoJ
 Instrucao no EXE = I
 Instrucao no MEM = I
 Instrucao no WB = I
@@ -92,7 +92,7 @@ Instrucao no WB = I
 --------------------------------
 PC = 0
 Instrucao no IF = vazio
-Instrucao no ID = J
+Instrucao no ID = tipoJ
 Instrucao no EXE = J
 Instrucao no MEM = I
 Instrucao no WB = I
@@ -100,7 +100,7 @@ Instrucao no WB = I
 --------------------------------
 PC = 0
 Instrucao no IF = vazio
-Instrucao no ID = vazio
+Instrucao no ID = tipovazio
 Instrucao no EXE = J
 Instrucao no MEM = J
 Instrucao no WB = I
@@ -108,7 +108,7 @@ Instrucao no WB = I
 --------------------------------
 PC = 0
 Instrucao no IF = vazio
-Instrucao no ID = vazio
+Instrucao no ID = tipovazio
 Instrucao no EXE = vazio
 Instrucao no MEM = J
 Instrucao no WB = J
@@ -118,7 +118,7 @@ Instrucao no WB = J
 --------------------------------
 PC = 36
 Instrucao no IF = 10001101001010000000010010110000
-Instrucao no ID = vazio
+Instrucao no ID = tipovazio
 Instrucao no EXE = vazio
 Instrucao no MEM = vazio
 Instrucao no WB = vazio
@@ -126,7 +126,7 @@ Instrucao no WB = vazio
 --------------------------------
 PC = 32
 Instrucao no IF = 00000010010010000100000000100000
-Instrucao no ID = I
+Instrucao no ID = tipoI
 Instrucao no EXE = vazio
 Instrucao no MEM = vazio
 Instrucao no WB = vazio
@@ -134,7 +134,7 @@ Instrucao no WB = vazio
 --------------------------------
 PC = 28
 Instrucao no IF = 00001000000000000000000011110101
-Instrucao no ID = R
+Instrucao no ID = tipoR
 Instrucao no EXE = I
 Instrucao no MEM = vazio
 Instrucao no WB = vazio
@@ -142,7 +142,7 @@ Instrucao no WB = vazio
 --------------------------------
 PC = 24
 Instrucao no IF = 10000000000010001010101010101010
-Instrucao no ID = J
+Instrucao no ID = tipoJ
 Instrucao no EXE = R
 Instrucao no MEM = I
 Instrucao no WB = vazio
@@ -150,7 +150,7 @@ Instrucao no WB = vazio
 --------------------------------
 PC = 20
 Instrucao no IF = 10000000000010001010101010101010
-Instrucao no ID = J
+Instrucao no ID = tipoJ
 Instrucao no EXE = J
 Instrucao no MEM = R
 Instrucao no WB = I
@@ -158,7 +158,7 @@ Instrucao no WB = I
 --------------------------------
 PC = 16
 Instrucao no IF = 00001000000000000000000011110101
-Instrucao no ID = J
+Instrucao no ID = tipoJ
 Instrucao no EXE = J
 Instrucao no MEM = J
 Instrucao no WB = R
@@ -166,7 +166,7 @@ Instrucao no WB = R
 --------------------------------
 PC = 12
 Instrucao no IF = 10001101001010000000010010110000
-Instrucao no ID = J
+Instrucao no ID = tipoJ
 Instrucao no EXE = J
 Instrucao no MEM = J
 Instrucao no WB = J
@@ -174,7 +174,7 @@ Instrucao no WB = J
 --------------------------------
 PC = 8
 Instrucao no IF = 10000000000010001010101010101010
-Instrucao no ID = I
+Instrucao no ID = tipoI
 Instrucao no EXE = J
 Instrucao no MEM = J
 Instrucao no WB = J
@@ -182,7 +182,7 @@ Instrucao no WB = J
 --------------------------------
 PC = 4
 Instrucao no IF = 10000000000010001010101010101010
-Instrucao no ID = I
+Instrucao no ID = tipoI
 Instrucao no EXE = I
 Instrucao no MEM = J
 Instrucao no WB = J
@@ -190,7 +190,7 @@ Instrucao no WB = J
 --------------------------------
 PC = 0
 Instrucao no IF = 00001000000000000000000011110101
-Instrucao no ID = I
+Instrucao no ID = tipoI
 Instrucao no EXE = I
 Instrucao no MEM = I
 Instrucao no WB = J
@@ -198,7 +198,7 @@ Instrucao no WB = J
 --------------------------------
 PC = 0
 Instrucao no IF = vazio
-Instrucao no ID = J
+Instrucao no ID = tipoJ
 Instrucao no EXE = I
 Instrucao no MEM = I
 Instrucao no WB = I
@@ -206,7 +206,7 @@ Instrucao no WB = I
 --------------------------------
 PC = 0
 Instrucao no IF = vazio
-Instrucao no ID = J
+Instrucao no ID = tipoJ
 Instrucao no EXE = J
 Instrucao no MEM = I
 Instrucao no WB = I
@@ -214,7 +214,7 @@ Instrucao no WB = I
 --------------------------------
 PC = 0
 Instrucao no IF = vazio
-Instrucao no ID = vazio
+Instrucao no ID = tipovazio
 Instrucao no EXE = J
 Instrucao no MEM = J
 Instrucao no WB = I
@@ -222,7 +222,7 @@ Instrucao no WB = I
 --------------------------------
 PC = 0
 Instrucao no IF = vazio
-Instrucao no ID = vazio
+Instrucao no ID = tipovazio
 Instrucao no EXE = vazio
 Instrucao no MEM = J
 Instrucao no WB = J
