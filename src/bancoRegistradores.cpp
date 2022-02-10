@@ -223,7 +223,6 @@ void BancoRegistradores::setCodesR(vector<int> comando) {
     digitos += to_string(comando[i]);
     i++;
   }
-  printf("\nAQUI\n");
   this->instrucaoFinal[5] = getFunct(digitos);
   digitos = "";
 

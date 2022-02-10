@@ -1,6 +1,7 @@
 #include<iostream>
 
 #include"../headers/Alu.h"
+#include"../headers/BancoRegistradores.h"
 
 // Instruções
 #define ADD 100 // R
@@ -25,14 +26,14 @@ Alu::Alu() {}
 
 Alu::~Alu() {}
 
-void Alu::decode(vector<int> comando, char tipo) {
-  if(tipo == 'R') decodeTypeR(comando);
-  if(tipo == 'I') decodeTypeI(comando);
-  if(tipo == 'J') decodeTypeJ(comando);
+void Alu::decode(vector<int> registradores, vector<int> comando, char tipo) {
+  if(tipo == 'R') decodeTypeR(registradores, comando);
+  if(tipo == 'I') decodeTypeI(registradores, comando);
+  if(tipo == 'J') decodeTypeJ(registradores, comando);
 }
 
 // ADD, SUB, AND, OR, SLT, SLL
-int  Alu::decodeTypeR(vector<int> comando){
+int  Alu::decodeTypeR(vector<int> registradores, vector<int> comando){
     int rs = comando[1];
     int rt = comando[2];
     int rd = comando[3];
@@ -42,7 +43,7 @@ int  Alu::decodeTypeR(vector<int> comando){
     switch (funct)
     {
     case 100: //ADD
-        return rs + rt; 
+        registradores[rd] = registradores[rs] + registradores[rt]; 
         break;
     case 200: //SUB
         return rs - rt; 
@@ -83,7 +84,7 @@ int  Alu::decodeTypeR(vector<int> comando){
 }
 
 // ADDI, LW, SW, BEQ, BNE
-int Alu::decodeTypeI(vector<int> comando){
+int Alu::decodeTypeI(vector<int> registradores, vector<int> comando){
     int op = comando[0];
     int rs = comando[1];
     int rt = comando[2];
@@ -118,7 +119,7 @@ int Alu::decodeTypeI(vector<int> comando){
 
 }     
 //J, JAL
-int Alu::decodeTypeJ(vector<int> comando) {
+int Alu::decodeTypeJ(vector<int> registradores, vector<int> comando) {
     int op = comando[0];
     int adress = comando[1];
     switch (op)

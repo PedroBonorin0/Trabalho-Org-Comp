@@ -147,9 +147,10 @@ void Mips::reset(BancoRegistradores* regs) {
   
   cout << "\nMemória Limpa\n";
 }
+
 // IF : Busca de instruções
 // ID : Decodificação de instruções e leitura de registradores
-// EX: Execução ou cálculo do endereço
+// EXE: Execução ou cálculo do endereço
 // MEM: Acesso à memória de dados
 // WB (Write Back): Escrita do resultado
 
@@ -179,7 +180,7 @@ void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
     if(indiceMEM < 0 || indiceMEM >= memInstrucoes.seqInstrucoesString.size() + 3) {
       estados[3] = "vazio";
     } else {
-
+      
 
       estados[3] = estados[2];
     }
@@ -187,21 +188,18 @@ void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
     if(indiceEXE < 0 || indiceEXE >= memInstrucoes.seqInstrucoesString.size() + 2) {
       estados[2] = "vazio";
     } else {
+      alu->decode(bancoRegs->registradores, bancoRegs->getInstrucaoParaALU(), bancoRegs->getTipoInstrucao());
 
-      
       estados[2] = estados[1];
     }
 
     if(indiceID < 0 || indiceID >= memInstrucoes.seqInstrucoesString.size() + 1) {
       estados[1] = "vazio";
     } else {
-
       if(this->instrucoes[a - 1].size() == 32) {
         bancoRegs->setInstrucao(this->instrucoes[a - 1]);
-        alu->decode(bancoRegs->getInstrucaoParaALU(), bancoRegs->getTipoInstrucao());
         estados[1] = bancoRegs->getTipoInstrucao();
       }
-
     }
 
     if(indiceIF >= memInstrucoes.seqInstrucoesString.size()) {
@@ -239,7 +237,7 @@ void Mips::impressao(int pc, vector<string> estados, int a){
   cout << "PC = " << pc << "\n";
   //   cout << "Banco de Regs = \n";
   cout << "Instrucao no IF = " << estados[0] << "\n";
-  cout << "Instrucao no ID = " << estados[1] <<  "\n";
+  cout << "Instrucao no ID = tipo " << estados[1] <<  "\n";
   cout << "Instrucao no EXE = " << estados[2] <<  "\n";
   cout << "Instrucao no MEM = " << estados[3] <<  "\n";
   cout << "Instrucao no WB = " << estados[4] <<  "\n";
@@ -250,7 +248,7 @@ void Mips::impressao(int pc, vector<string> estados, int a){
   arquivotxt << "PC = " << pc << "\n";
   //   arquivotxt << "Banco de Regs = \n";
   arquivotxt << "Instrucao no IF = " << estados[0] << "\n";
-  arquivotxt << "Instrucao no ID = " << estados[1] <<  "\n";
+  arquivotxt << "Instrucao no ID = tipo" << estados[1] <<  "\n";
   arquivotxt << "Instrucao no EXE = " << estados[2] <<  "\n";
   arquivotxt << "Instrucao no MEM = " << estados[3] <<  "\n";
   arquivotxt << "Instrucao no WB = " << estados[4] <<  "\n";
