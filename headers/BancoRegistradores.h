@@ -21,8 +21,6 @@ class BancoRegistradores {
     BancoRegistradores();
     ~BancoRegistradores();
 
-    vector<int> registradores;
-    
     int getValorDoReg(int reg);
     void setValorDoReg(int reg, int valor);
 

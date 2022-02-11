@@ -185,22 +185,18 @@ void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
     if(indiceMEM < 0 || indiceMEM >= memInstrucoes.seqInstrucoesString.size() + 3) {
       estados[3] = "vazio";
     } else {
-      if(!vaiEscreverNaMemoria) {
+      if(bancoRegs->getInstrucaoParaALU()[0] == 800)
+        estados[3] = "Acesso de leitura da memória";
+      else if(bancoRegs->getInstrucaoParaALU()[0] == 900)
+        estados[3] = "Acesso de escrita na memória";
+      else
         estados[3] = "Não é acessada";
-      } else {
-        if(bancoRegs->getInstrucaoParaALU()[0] == 800) 
-          estados[3] = "Acesso de leitura da memória"; 
-        
-        if(bancoRegs->getInstrucaoParaALU()[0] == 900) 
-          estados[3] = "Acesso de escrita na memória"; 
-        
-      }
     }
 
     if(indiceEXE < 0 || indiceEXE >= memInstrucoes.seqInstrucoesString.size() + 2) {
       estados[2] = "vazio";
     } else {
-      vaiEscreverNaMemoria = alu->decode(bancoRegs->registradores, bancoRegs->getInstrucaoParaALU(), bancoRegs->getTipoInstrucao());
+      alu->decode(bancoRegs->registradores, bancoRegs->getInstrucaoParaALU(), bancoRegs->getTipoInstrucao());
 
       estados[2] = estados[1];
     }
