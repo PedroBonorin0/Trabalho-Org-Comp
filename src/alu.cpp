@@ -39,39 +39,41 @@ int  Alu::decodeTypeR(vector<int> registradores, vector<int> comando){
     int rd = comando[3];
     int shamt = comando[4];
     int funct = comando[5];
-
+    
+    
     switch (funct)
     {
     case 100: //ADD
-        registradores[rd] = registradores[rs] + registradores[rt]; 
+        registradores[rd] = rs + rt;
         break;
     case 200: //SUB
-        return rs - rt; 
+        registradores[rd] = rs - rt; 
         break;
     case 300: //AND
         if(rs == 1 && rt == 1){
-            return 1;
+            registradores[rd] = 1;
         }else{
-            return 0;
+            registradores[rd] = 0;
         }
         break;
     case 400: //OR
         if(rs == 1 || rt == 1){
-            return 1;
+            registradores[rd] = 1;
         }else{
-            return 0;
+            registradores[rd] = 0;
         }
         break;
     case 500: //SLT
         if(rs < rt){
-            return 1;
+            registradores[rd] = 1;
         }else{
-            return 0;
+            registradores[rd] = 0;
         }
         break;
        
     case 600 : //SLL
-        return rt + shamt;
+
+        registradores[rd] = rt + shamt;
         break;
         
     case 1300: //JR
@@ -84,7 +86,7 @@ int  Alu::decodeTypeR(vector<int> registradores, vector<int> comando){
 }
 
 // ADDI, LW, SW, BEQ, BNE
-int Alu::decodeTypeI(vector<int> registradores, vector<int> comando){
+bool Alu::decodeTypeI(vector<int> registradores, vector<int> comando){
     int op = comando[0];
     int rs = comando[1];
     int rt = comando[2];
@@ -93,24 +95,29 @@ int Alu::decodeTypeI(vector<int> registradores, vector<int> comando){
     switch (op)
     {
     case 700: //ADDI
-        return rt + adress;
+        registradores[rs] =  rt + adress;
+        return false;
         break;
     
     case 800: //LW
-        return rt + rs;
+        registradores[rs] = registradores[adress + rt ];
+        return true;
     
     case 900: //SW
-        return rt + rs;
+        registradores[adress + rt ] = registradores[rs];
+        return true;
         break;
     
     case 1000: //BEQ
         if(rs == rt)
-            return adress;
+            registradores[rs] =  adress;
+            return false;
         break;
     
     case 1100: //BNE
         if(rs != rt)
-            return adress; 
+            registradores[rs] =  adress; 
+            return false;
         break;
     
     default:
@@ -125,6 +132,7 @@ int Alu::decodeTypeJ(vector<int> registradores, vector<int> comando) {
     switch (op)
     {
     case 1200: //J
+
         break;
     case 1400: //JAL
 
