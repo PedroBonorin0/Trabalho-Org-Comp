@@ -26,54 +26,71 @@ Alu::Alu() {}
 
 Alu::~Alu() {}
 
-void Alu::decode(vector<int> registradores, vector<int> comando, char tipo) {
-  if(tipo == 'R') decodeTypeR(registradores, comando);
-  if(tipo == 'I') decodeTypeI(registradores, comando);
-  if(tipo == 'J') decodeTypeJ(registradores, comando);
+string Alu::decode(vector<int> registradores, vector<int> comando, char tipo) {
+  if(tipo == 'R') return decodeTypeR(registradores, comando);
+  if(tipo == 'I') return decodeTypeI(registradores, comando);
+    return decodeTypeJ(registradores, comando);
 }
 
 // ADD, SUB, AND, OR, SLT, SLL
-int  Alu::decodeTypeR(vector<int> registradores, vector<int> comando){
+string  Alu::decodeTypeR(vector<int> registradores, vector<int> comando){
     int rs = comando[1];
     int rt = comando[2];
     int rd = comando[3];
     int shamt = comando[4];
     int funct = comando[5];
     
-    
+    string saida;
     switch (funct)
     {
     case 100: //ADD
-       return rs + rt;
-        break;
+        registradores[rd] = rs + rt;
+        saida = to_string(rs) + " + " + to_string(rt) + " = " + to_string(rs+rt);
+        return saida;
+        
     case 200: //SUB
-       return rs - rt; 
-        break;
+        registradores[rd] = rs - rt; 
+        saida = to_string(rs) + " - " + to_string(rt) + " = " + to_string(rs-rt);
+        return saida;
+        
     case 300: //AND
         if(rs == 1 && rt == 1){
-           return 1;
+            registradores[rd] = 1;
+            saida = to_string(rs) + " AND " + to_string(rt) + " = TRUE";
+            return saida;
         }else{
-           return 0;
+            registradores[rd] = 0;
+            saida = to_string(rs) + " AND " + to_string(rt) + " = FALSE";
+            return saida;
         }
-        break;
+        
     case 400: //OR
         if(rs == 1 || rt == 1){
-           return 1;
+            registradores[rd] = 1;
+            saida = to_string(rs) + " OR " + to_string(rt) + " = TRUE";
+            return saida;
         }else{
-           return 0;
+            registradores[rd] = 0;
+            saida = to_string(rs) + " OR " + to_string(rt) + " = FALSE";
+            return saida;
         }
-        break;
+        
     case 500: //SLT
         if(rs < rt){
-           return 1;
+            registradores[rd] = 1;
+            saida = to_string(rs) + " SLT " + to_string(rt) + " = TRUE";
+            return saida;
         }else{
-           return 0;
+            registradores[rd] = 0;
+            saida = to_string(rs) + " SLT " + to_string(rt) + " = FALSE";
+            return saida;
         }
-        break;
        
     case 600 : //SLL
-        return rt + shamt;
-        break;
+        registradores[rd] = rt + shamt;
+        saida = to_string(rt) + " OR " + to_string(shamt) + " = FALSE";
+        return saida;
+    
         
     case 1300: //JR
 
@@ -82,58 +99,79 @@ int  Alu::decodeTypeR(vector<int> registradores, vector<int> comando){
     default:
         break;
     }
+    saida = "ERRO DECODE TYPE R";
+    return saida;
 }
 
 // ADDI, LW, SW, BEQ, BNE
-bool Alu::decodeTypeI(vector<int> registradores, vector<int> comando){
+string Alu::decodeTypeI(vector<int> registradores, vector<int> comando){
     int op = comando[0];
     int rs = comando[1];
     int rt = comando[2];
     int adress = comando[3];
+    string saida;
 
     switch (op)
     {
     case 700: //ADDI
-        return rt + adress;
-        break;
+        registradores[rs] =  rt + adress;
+        saida = to_string(rt) + " ADDI " + to_string(adress);
+        return saida;
     
     case 800: //LW
-        return registradores[adress + rt ];
+        registradores[rs] = registradores[adress + rt ];
+        saida = "leitura do registrador " + to_string(adress + rt);
+        return saida;
     
     case 900: //SW
-        return registradores[adress + rt ];
-        break;
-    
+        registradores[adress + rt ] = registradores[rs];
+        saida = "Escrita no registrador " + to_string(adress + rt);
+        return saida;
+        
     case 1000: //BEQ
-        if(rs == rt)
-            return adress;
-        break;
+        if(rs == rt){
+            registradores[rs] =  adress;
+            saida = to_string(rs) + " BER " + to_string(rt) + " = TRUE";
+            return saida;
+        }
+        saida = to_string(rs) + " BER " + to_string(rt) + " = FALSE";
+        return saida; 
+        
     
     case 1100: //BNE
-        if(rs != rt)
-            return adress; 
+        if(rs != rt){
+            registradores[rs] =  adress; 
+            saida = to_string(rs) + " BNE " + to_string(rt) + " = TRUE";
+            return saida;
+        }
+        saida = to_string(rs) + " BER " + to_string(rt) + " = FALSE";
+        return saida;   
         break;
     
     default:
         break;
     }
-
+    saida = "ERRO DECODE TYPE I";
+    return saida;
 }     
 //J, JAL
-int Alu::decodeTypeJ(vector<int> registradores, vector<int> comando) {
+string Alu::decodeTypeJ(vector<int> registradores, vector<int> comando) {
     int op = comando[0];
     int adress = comando[1];
+    string saida;
     switch (op)
     {
     case 1200: //J
-
-        break;
+        saida = "Deslocamento de " + to_string(adress);
+        return saida;
     case 1400: //JAL
-
-        break;
+        saida = "Deslocamento de " + to_string(adress) + "e link ";
+        return saida;
     default:
         break;
     }
+    saida = "ERRO DECODE TYPE J";
+    return saida;
 }
 
 

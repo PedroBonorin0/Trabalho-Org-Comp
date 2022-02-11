@@ -148,11 +148,9 @@ void Mips::reset(BancoRegistradores* regs) {
   cout << "\nMemória Limpa\n";
 }
 
-// IF : Busca de instruções
-// ID : Decodificação de instruções e leitura de registradores
-// EXE: Execução ou cálculo do endereço
-// MEM: Acesso à memória de dados
-// WB (Write Back): Escrita do resultado
+
+
+
 
 void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
   cout << "\nIniciando simulação de Máquina MIPS\n";
@@ -169,19 +167,21 @@ void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
   estados.resize(5);
 
   vector<int> regs;
-
   for (int a = 0; a < memInstrucoes.seqInstrucoesString.size() + 4; a++){
+    // WB (Write Back): Escrita do resultado
     if(indiceWB < 0 || indiceWB >= memInstrucoes.seqInstrucoesString.size() + 4) {
       estados[4] = "vazio";
     } else {
       if(bancoRegs->getInstrucaoParaALU()[0] == 800)
         estados[4] = "Não está ativo";
       else {
-        // bancoRegs->registradores[];  
+        //bancoRegs->registradores[];  
         estados[4] = "Escrevendo em um registrador";
+
       }
     }
 
+    // MEM: Acesso à memória de dados
     if(indiceMEM < 0 || indiceMEM >= memInstrucoes.seqInstrucoesString.size() + 3) {
       estados[3] = "vazio";
     } else {
@@ -192,15 +192,14 @@ void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
       else
         estados[3] = "Não é acessada";
     }
-
+    
+    // EXE: Execução ou cálculo do endereço
     if(indiceEXE < 0 || indiceEXE >= memInstrucoes.seqInstrucoesString.size() + 2) {
       estados[2] = "vazio";
     } else {
-      alu->decode(bancoRegs->registradores, bancoRegs->getInstrucaoParaALU(), bancoRegs->getTipoInstrucao());
-
-      estados[2] = estados[1];
+      estados[2] = alu->decode(bancoRegs->registradores, bancoRegs->getInstrucaoParaALU(), bancoRegs->getTipoInstrucao());
     }
-
+    // ID : Decodificação de instruções e leitura de registradores
     if(indiceID < 0 || indiceID >= memInstrucoes.seqInstrucoesString.size() + 1) {
       estados[1] = "vazio";
     } else {
@@ -210,6 +209,7 @@ void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
       }
     }
     
+    // IF : Busca de instruções
     if(indiceIF >= memInstrucoes.seqInstrucoesString.size()) {
       estados[0] = "vazio";
     } else {
@@ -227,13 +227,22 @@ void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
   }
   
   delete bancoRegs;
+  cout << endl;
+  cout << "---------------------------------------------------" <<endl;
+  cout << "- Execução do simulador de Pipeline finalizadada! -" << endl;
+  cout << "---------------------------------------------------" <<endl;
+  cout << endl;
+  cout << "--------------------------------------------------" <<endl;
+  cout << "- Os mesmos valores que foram exibido no console -" << endl;
+  cout << "-- tambem estão diponiveis no arquivo saida.txt --" << endl;
+  cout << "--------------------------------------------------" <<endl;
 }
 
 
 
 
 void Mips::impressao(int pc, vector<string> estados, int a){
-  ofstream arquivotxt("saixa.txt",ios::app);
+  ofstream arquivotxt("saida.txt",ios::app);
 
   if(a == 0) {
     cout << "\n====================INÍCIO DE EXECUÇÃO====================\n";
@@ -244,22 +253,31 @@ void Mips::impressao(int pc, vector<string> estados, int a){
   cout << "\n--------------------------------\n";
   cout << "PC = " << pc << "\n";
   //   cout << "Banco de Regs = \n";
-  cout << "Instrucao no IF = " << estados[0] << "\n";
-  cout << "Instrucao no ID = tipo " << estados[1] <<  "\n";
-  cout << "Instrucao no EXE = " << estados[2] <<  "\n";
-  cout << "Instrucao no MEM = " << estados[3] <<  "\n";
-  cout << "Instrucao no WB = " << estados[4] <<  "\n";
+  cout << "Instrucao no IF => " << estados[0] << "\n";
   
+  if(estados[1] == "vazio"){
+    cout << "Instrucao no ID =>  " << estados[1] <<  "\n";
+  }else{
+    cout << "Instrucao no ID => tipo " << estados[1] <<  "\n";
+  }
+  cout << "Instrucao no EXE => " << estados[2] <<  "\n";
+  cout << "Instrucao no MEM => " << estados[3] <<  "\n";
+  cout << "Instrucao no WB => " << estados[4] <<  "\n";
+
   // ESCRITA DE CADA ETAPA 
 
   arquivotxt << "\n--------------------------------\n";
   arquivotxt << "PC = " << pc << "\n";
   //   arquivotxt << "Banco de Regs = \n";
-  arquivotxt << "Instrucao no IF = " << estados[0] << "\n";
-  arquivotxt << "Instrucao no ID = tipo" << estados[1] <<  "\n";
-  arquivotxt << "Instrucao no EXE = " << estados[2] <<  "\n";
-  arquivotxt << "Instrucao no MEM = " << estados[3] <<  "\n";
-  arquivotxt << "Instrucao no WB = " << estados[4] <<  "\n";
+  arquivotxt << "Instrucao no IF => " << estados[0] << "\n";
+  if(estados[1] == "vazio"){
+    arquivotxt << "Instrucao no ID =>  " << estados[1] <<  "\n";
+  }else{
+    arquivotxt << "Instrucao no ID => tipo " << estados[1] <<  "\n";
+  }
+  arquivotxt << "Instrucao no EXE => " << estados[2] <<  "\n";
+  arquivotxt << "Instrucao no MEM => " << estados[3] <<  "\n";
+  arquivotxt << "Instrucao no WB => " << estados[4] <<  "\n";
 
   arquivotxt.close();
 }
