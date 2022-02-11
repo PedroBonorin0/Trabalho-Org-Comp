@@ -28,9 +28,8 @@ void Mips::inicia() {
 void Mips::iniciaComLeitura() {
   string caminhoArquivo, linha;
   int comando;
-  // cout << "\nDigite o caminho a partir da pasta atual para o arquivo a ser lido\n";
-  // cin >> caminhoArquivo;
-  caminhoArquivo = "./comandos.txt";
+  cout << "\nDigite o caminho a partir da pasta atual para o arquivo a ser lido\n";
+  cin >> caminhoArquivo;
 
   ifstream arquivo;
   arquivo.open(caminhoArquivo);
@@ -179,6 +178,7 @@ void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
       else {
         bancoRegs->registradores[bancoRegs->getInstrucaoParaALU()[3]] = retornoAlu;
         estados[4] = "Escrevendo em um registrador";
+
       }
     }
 

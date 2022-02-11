@@ -33,7 +33,7 @@ int Alu::decode(vector<int> registradores, vector<int> comando, char tipo) {
 }
 
 // ADD, SUB, AND, OR, SLT, SLL
-int  Alu::decodeTypeR(vector<int> registradores, vector<int> comando){
+int Alu::decodeTypeR(vector<int> registradores, vector<int> comando){
     int rs = comando[1];
     int rt = comando[2];
     int rd = comando[3];
@@ -87,6 +87,7 @@ int Alu::decodeTypeI(vector<int> registradores, vector<int> comando){
     int rs = comando[1];
     int rt = comando[2];
     int adress = comando[3];
+    string saida;
 
     switch (op)
     {
