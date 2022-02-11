@@ -163,6 +163,8 @@ void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
   string ifAtual, idAtual, exeAtual, memAtual, wbAtual;
   int indiceIF = 0, indiceID = -1, indiceEXE = -2, indiceMEM = -3, indiceWB = -4;
 
+  bool vaiEscreverNaMemoria = false;
+
   vector<string> estados;
   estados.resize(5);
 
@@ -172,22 +174,33 @@ void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
     if(indiceWB < 0 || indiceWB >= memInstrucoes.seqInstrucoesString.size() + 4) {
       estados[4] = "vazio";
     } else {
-
-      
-      estados[4] = estados[3];
+      if(bancoRegs->getInstrucaoParaALU()[0] == 800)
+        estados[4] = "Não está ativo";
+      else {
+        // bancoRegs->registradores[];  
+        estados[4] = "Escrevendo em um registrador";
+      }
     }
 
     if(indiceMEM < 0 || indiceMEM >= memInstrucoes.seqInstrucoesString.size() + 3) {
       estados[3] = "vazio";
     } else {
-
-      estados[3] = estados[2];
+      if(!vaiEscreverNaMemoria) {
+        estados[3] = "Não é acessada";
+      } else {
+        if(bancoRegs->getInstrucaoParaALU()[0] == 800) 
+          estados[3] = "Acesso de leitura da memória"; 
+        
+        if(bancoRegs->getInstrucaoParaALU()[0] == 900) 
+          estados[3] = "Acesso de escrita na memória"; 
+        
+      }
     }
 
     if(indiceEXE < 0 || indiceEXE >= memInstrucoes.seqInstrucoesString.size() + 2) {
       estados[2] = "vazio";
     } else {
-      alu->decode(bancoRegs->registradores, bancoRegs->getInstrucaoParaALU(), bancoRegs->getTipoInstrucao());
+      vaiEscreverNaMemoria = alu->decode(bancoRegs->registradores, bancoRegs->getInstrucaoParaALU(), bancoRegs->getTipoInstrucao());
 
       estados[2] = estados[1];
     }
