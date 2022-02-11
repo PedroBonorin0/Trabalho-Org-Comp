@@ -180,6 +180,7 @@ int BancoRegistradores::getFunct(string comando) {
     case 42:
       return SLT;
   }
+  return -1;
 }
 
 

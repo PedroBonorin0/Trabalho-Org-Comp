@@ -33,7 +33,7 @@ class Mips {
 
     void iniciaSimulacao(MemInstrucoes& memoria);
 
-    void impressao(int pc, vector<string> estados, int a);
+    void impressao(int pc, vector<string> estados, int a, BancoRegistradores* bancoRegs);
 };  
 
 #endif

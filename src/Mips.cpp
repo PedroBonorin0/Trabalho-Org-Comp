@@ -4,6 +4,7 @@
 #include"../headers/BancoRegistradores.h"
 #include"../headers/MemInstrucoes.h"
 #include"../headers/Alu.h"
+#include"../headers/Memoria.h"
 
 #define ZERO = 0;
 
@@ -148,60 +149,65 @@ void Mips::reset(BancoRegistradores* regs) {
   cout << "\nMemória Limpa\n";
 }
 
-// IF : Busca de instruções
-// ID : Decodificação de instruções e leitura de registradores
-// EXE: Execução ou cálculo do endereço
-// MEM: Acesso à memória de dados
-// WB (Write Back): Escrita do resultado
+
+
+
 
 void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
   cout << "\nIniciando simulação de Máquina MIPS\n";
   
   BancoRegistradores* bancoRegs = new BancoRegistradores();
   Alu* alu = new Alu();
+  Memoria* memoria = new Memoria();
 
   string ifAtual, idAtual, exeAtual, memAtual, wbAtual;
   int indiceIF = 0, indiceID = -1, indiceEXE = -2, indiceMEM = -3, indiceWB = -4;
 
-  bool vaiEscreverNaMemoria = false;
+  int retornoAlu;
 
   vector<string> estados;
   estados.resize(5);
 
   vector<int> regs;
-
-  for (int a = 0; a < memInstrucoes.seqInstrucoesString.size() + 4; a++){
-    if(indiceWB < 0 || indiceWB >= memInstrucoes.seqInstrucoesString.size() + 4) {
+  for (int a = 0; a < memInstrucoes.seqInstrucoesString.size() + 5; a++){
+    // WB (Write Back): Escrita do resultado
+    if(indiceWB < 0 || indiceWB >= memInstrucoes.seqInstrucoesString.size()) {
       estados[4] = "vazio";
     } else {
-      if(bancoRegs->getInstrucaoParaALU()[0] == 800)
+      if(bancoRegs->getInstrucaoParaALU()[0] == 800 || !bancoRegs->getTipoInstrucao() == 'R')
         estados[4] = "Não está ativo";
       else {
-        // bancoRegs->registradores[];  
+        bancoRegs->registradores[bancoRegs->getInstrucaoParaALU()[3]] = retornoAlu;
         estados[4] = "Escrevendo em um registrador";
       }
     }
 
-    if(indiceMEM < 0 || indiceMEM >= memInstrucoes.seqInstrucoesString.size() + 3) {
+    // MEM: Acesso à memória de dados
+    if(indiceMEM < 0 || indiceMEM >= memInstrucoes.seqInstrucoesString.size()) {
       estados[3] = "vazio";
     } else {
-      if(bancoRegs->getInstrucaoParaALU()[0] == 800)
+      if(bancoRegs->getInstrucaoParaALU()[0] == 800) {
+        memoria->getValorDaMemoria(retornoAlu);
         estados[3] = "Acesso de leitura da memória";
-      else if(bancoRegs->getInstrucaoParaALU()[0] == 900)
+      }
+      else if(bancoRegs->getInstrucaoParaALU()[0] == 900) {
+        memoria->escreveNaPosicao(retornoAlu, bancoRegs->getInstrucaoParaALU()[2]);
         estados[3] = "Acesso de escrita na memória";
+      }
       else
         estados[3] = "Não é acessada";
     }
-
-    if(indiceEXE < 0 || indiceEXE >= memInstrucoes.seqInstrucoesString.size() + 2) {
+    
+    // EXE: Execução ou cálculo do endereço
+    if(indiceEXE < 0 || indiceEXE >= memInstrucoes.seqInstrucoesString.size()) {
       estados[2] = "vazio";
     } else {
-      alu->decode(bancoRegs->registradores, bancoRegs->getInstrucaoParaALU(), bancoRegs->getTipoInstrucao());
-
-      estados[2] = estados[1];
+      retornoAlu = alu->decode(bancoRegs->registradores, bancoRegs->getInstrucaoParaALU(), bancoRegs->getTipoInstrucao());
+      estados[2] = "Calculando instrução " + to_string(a - 1);
     }
-
-    if(indiceID < 0 || indiceID >= memInstrucoes.seqInstrucoesString.size() + 1) {
+    
+    // ID : Decodificação de instruções e leitura de registradores
+    if(indiceID < 0 || indiceID >= memInstrucoes.seqInstrucoesString.size()) {
       estados[1] = "vazio";
     } else {
       if(this->instrucoes[a - 1].size() == 32) {
@@ -210,6 +216,7 @@ void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
       }
     }
     
+    // IF : Busca de instruções
     if(indiceIF >= memInstrucoes.seqInstrucoesString.size()) {
       estados[0] = "vazio";
     } else {
@@ -217,7 +224,7 @@ void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
         estados[0] = ifAtual;
     }
 
-    impressao(memInstrucoes.getPC(),estados, a);
+    impressao(memInstrucoes.getPC(),estados, a, bancoRegs);
     
     indiceIF++;
     indiceID++;
@@ -227,13 +234,19 @@ void Mips::iniciaSimulacao(MemInstrucoes& memInstrucoes) {
   }
   
   delete bancoRegs;
+  cout << endl;
+  cout << "---------------------------------------------------" <<endl;
+  cout << "- Execução do simulador de Pipeline finalizadada! -" << endl;
+  cout << "---------------------------------------------------" <<endl;
+  cout << endl;
+  cout << "--------------------------------------------------" <<endl;
+  cout << "- Os mesmos valores que foram exibido no console -" << endl;
+  cout << "-- tambem estão diponiveis no arquivo saida.txt --" << endl;
+  cout << "--------------------------------------------------" <<endl;
 }
 
-
-
-
-void Mips::impressao(int pc, vector<string> estados, int a){
-  ofstream arquivotxt("saixa.txt",ios::app);
+void Mips::impressao(int pc, vector<string> estados, int a, BancoRegistradores* bancoRegs){
+  ofstream arquivotxt("saida.txt",ios::app);
 
   if(a == 0) {
     cout << "\n====================INÍCIO DE EXECUÇÃO====================\n";
@@ -243,23 +256,55 @@ void Mips::impressao(int pc, vector<string> estados, int a){
   // IMPRESSAO DE CADA ETAPA 
   cout << "\n--------------------------------\n";
   cout << "PC = " << pc << "\n";
-  //   cout << "Banco de Regs = \n";
-  cout << "Instrucao no IF = " << estados[0] << "\n";
-  cout << "Instrucao no ID = tipo " << estados[1] <<  "\n";
-  cout << "Instrucao no EXE = " << estados[2] <<  "\n";
-  cout << "Instrucao no MEM = " << estados[3] <<  "\n";
-  cout << "Instrucao no WB = " << estados[4] <<  "\n";
+  cout << "Instrucao no IF => " << estados[0] << "\n";
   
+  if(estados[1] == "vazio"){
+    cout << "Instrucao no ID =>  " << estados[1] <<  "\n";
+  }else{
+    cout << "Instrucao no ID => tipo " << estados[1] <<  "\n";
+  }
+  cout << "Instrucao no EXE => " << estados[2] <<  "\n";
+  cout << "Instrucao no MEM => " << estados[3] <<  "\n";
+  cout << "Instrucao no WB => " << estados[4] <<  "\n";
+
+  cout << "\nBanco de registradores: \n";
+  for(int i = 0; i < bancoRegs->registradores.size(); i++) {
+    if(i == 0) {
+      cout << "Reg " << i << ": 0" << endl;
+      continue;
+    }
+    if(bancoRegs->registradores[i] != -1)
+      cout << "Reg " << i << ": " << bancoRegs->registradores[i] << endl;
+    else 
+      cout << "Reg " << i << " não utilizado" << endl;
+  }
+
   // ESCRITA DE CADA ETAPA 
 
   arquivotxt << "\n--------------------------------\n";
   arquivotxt << "PC = " << pc << "\n";
   //   arquivotxt << "Banco de Regs = \n";
-  arquivotxt << "Instrucao no IF = " << estados[0] << "\n";
-  arquivotxt << "Instrucao no ID = tipo" << estados[1] <<  "\n";
-  arquivotxt << "Instrucao no EXE = " << estados[2] <<  "\n";
-  arquivotxt << "Instrucao no MEM = " << estados[3] <<  "\n";
-  arquivotxt << "Instrucao no WB = " << estados[4] <<  "\n";
+  arquivotxt << "Instrucao no IF => " << estados[0] << "\n";
+  if(estados[1] == "vazio"){
+    arquivotxt << "Instrucao no ID =>  " << estados[1] <<  "\n";
+  }else{
+    arquivotxt << "Instrucao no ID => tipo " << estados[1] <<  "\n";
+  }
+  arquivotxt << "Instrucao no EXE => " << estados[2] <<  "\n";
+  arquivotxt << "Instrucao no MEM => " << estados[3] <<  "\n";
+  arquivotxt << "Instrucao no WB => " << estados[4] <<  "\n";
+
+  arquivotxt << "\nBanco de registradores: \n";
+  for(int i = 0; i < bancoRegs->registradores.size(); i++) {
+    if(i == 0) {
+      arquivotxt << "Reg " << i << ": 0" << endl;
+      continue;
+    }
+    if(bancoRegs->registradores[i] != -1)
+      arquivotxt << "Reg " << i << ": " << bancoRegs->registradores[i] << endl;
+    else 
+      arquivotxt << "Reg " << i << " não utilizado" << endl;
+  }
 
   arquivotxt.close();
 }
